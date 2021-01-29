@@ -1,0 +1,37 @@
+{
+  "id": "2355081",
+  "name": "campus_recruitment",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "6500744",
+      "name": "qq",
+      "font_class": "qq",
+      "unicode": "e614",
+      "unicode_decimal": 58900
+    },
+    {
+      "icon_id": "6154432",
+      "name": "微信",
+      "font_class": "weixin",
+      "unicode": "e82c",
+      "unicode_decimal": 59436
+    },
+    {
+      "icon_id": "8156558",
+      "name": "学生",
+      "font_class": "xuesheng",
+      "unicode": "e63a",
+      "unicode_decimal": 58938
+    },
+    {
+      "icon_id": "15657081",
+      "name": "手机",
+      "font_class": "shouji",
+      "unicode": "e634",
+      "unicode_decimal": 58932
+    }
+  ]
+}
