@@ -55,7 +55,7 @@ export default class index extends Component {
                   <Row justify="space-around" align="middle">
                     <i className="iconfont" style={{color:'#73D8A2',fontSize:'50px'}}>&#xe63a;</i>
                     
-                  <Row style={{fontSize:'26px'}} justify="space-around" align="middle">校园招聘</Row>
+                  <Row style={{fontSize:'26px',fontFamily:'LiSu'}} justify="space-around" align="middle">校园招聘</Row>
                   </Row>
                   <Row>123</Row>
                 </Col>

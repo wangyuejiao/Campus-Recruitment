@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
+import TopNav from '../../components/topNav'
 
 export default class index extends Component {
     render() {
         return (
-            <div style={{width:'100vh',height:'100vh',backgroundColor:'red'}}>
-                123
+            <div>
+                <TopNav current='position' />
             </div>
         )
     }

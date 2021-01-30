@@ -6,6 +6,27 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "4867116",
+      "name": "职位",
+      "font_class": "zhiwei",
+      "unicode": "e660",
+      "unicode_decimal": 58976
+    },
+    {
+      "icon_id": "7164647",
+      "name": "首页",
+      "font_class": "shouye-",
+      "unicode": "e635",
+      "unicode_decimal": 58933
+    },
+    {
+      "icon_id": "8797978",
+      "name": "公司查询",
+      "font_class": "gongsichaxun",
+      "unicode": "e7ce",
+      "unicode_decimal": 59342
+    },
+    {
       "icon_id": "6682541",
       "name": "地址",
       "font_class": "dizhi",

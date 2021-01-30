@@ -12,7 +12,7 @@ export default class index extends Component {
         return (
            <div>
                
-               <TopNav />
+               <TopNav current='home' />
                <Search />
                <Row>
                <Col span={22} style={{backgroundColor:'#F3F3F3'}}></Col>
