@@ -49,21 +49,6 @@ export default class index extends Component {
             <span>北京</span>
           </Row>
         </Col>
-        {/* <Col span={2} style={unselect}>
-                    <Row align="middle" justify='center' style={{ height: '100%' }}>
-                        <Link to='/'>首页</Link>
-                     </Row>
-                </Col>
-                <Col span={2} style={pitch.background}>
-                    <Row align="middle" justify='center' style={{ height: '100%' }}>
-                        <Link to='/position' style={pitch.font}>职位</Link>
-                     </Row>
-                </Col>
-                <Col span={2} style={{color:'white'}}>
-                    <Row align="middle" justify='center' style={{ height: '100%' }}>
-                        <Link to='/company'>公司</Link>
-                     </Row>
-                </Col> */}
         <Col span={6}>
           <Row justify="space-around" align="middle">
             <Menu

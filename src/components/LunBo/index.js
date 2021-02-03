@@ -3,7 +3,7 @@ import { Carousel } from "antd";
 export default class index extends Component {
   render() {
     const contentStyle = {
-      height: "160px",
+      height: "260px",
       color: "#fff",
       lineHeight: "160px",
       textAlign: "center",
