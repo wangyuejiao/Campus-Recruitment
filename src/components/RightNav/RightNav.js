@@ -17,7 +17,7 @@ export default function RightNav(props) {
   return (
     <Affix offsetTop={top}>
       <div style={box}>
-      <Row justify="end" style={{ height: "100%" ,width:'100%',}}>
+      <Row justify="end" style={{ height: "100%" ,width:'100%'}}>
         <Col span={24}>
           <Menu
             defaultSelectedKeys={["1"]}
