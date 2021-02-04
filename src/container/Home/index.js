@@ -9,8 +9,9 @@ import Position from '../../components/Position'
 import { Row, Col, Divider } from "antd";
 
 const style = { background: 'white', padding: '8px 0',height:'15vh'};
-
+const a=['互联网','金融','教育培训','医疗健康','法律咨询','供应-物流','采购贸易']
 export default class index extends Component {
+
   render() {
     return (
       <div>
@@ -39,19 +40,20 @@ export default class index extends Component {
                 <Lunbo />
               </Col>
             </Row>
-            {/* 分割线改变长度和颜色 */}
-            <Divider style={{ color: 'red', width: '50vh' }}> 热门岗位</Divider>
+            {/* 分割线颜色 */}
+            <Row style={{backgroundColor:'#F3F3F3'}} justify='center' align='middle'>
+              <Col span={8}>
+              <Divider style={{border:'#D0DDE3'}}>热门职位</Divider>
+              </Col>
+            </Row>
             <Row style={{ backgroundColor: '#F3F3F3', height: '10vh' }} justify='center' align='middle'>
               <Col span={2} ></Col>
               <Col span={20}>
                 <Row style={{ backgroundColor: 'white', height: '8vh' }} justify='center' align='middle'>
-                  <Col span={3}>互联网</Col>
-                  <Col span={3}>金融</Col>
-                  <Col span={3}> 教育培训</Col>
-                  <Col span={3}> 医疗健康</Col>
-                  <Col span={4}>法律咨询</Col>
-                  <Col span={4}>供应-物流</Col>
-                  <Col span={4}>采购贸易</Col>
+                  {a.map((item,index)=>(
+                    <Col span={3}>{item}</Col>
+                  )
+                  )}
                 </Row>
               </Col>
               <Col span={2} ></Col>
@@ -89,11 +91,11 @@ export default class index extends Component {
               </Col>
               <Col span={2}></Col>
             </Row> */}
-            <Row style={{ backgroundColor: '#F3F3F3',height:'35vh',paddingTop:'20px'}}>
+            {/* <Row style={{ backgroundColor: '#F3F3F3',height:'35vh',paddingTop:'20px'}}>
                <Col span={2} style={{backgroundColor:'green'}}></Col>
                 <Col span={20}> <Position /></Col>
                 <Col span={2} style={{backgroundColor:'green'}}></Col>
-            </Row>
+            </Row> */}
             
 
 
