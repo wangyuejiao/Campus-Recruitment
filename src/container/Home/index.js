@@ -30,12 +30,6 @@ export default class index extends Component {
 
         console.log(res.list[0].type_name)
       })
-<<<<<<< HEAD
-    }
-    
-  render() {
-    const {names}=this.state 
-=======
 
 
     fetch("http://42.192.102.128:3000/common/city")
@@ -52,7 +46,6 @@ export default class index extends Component {
   render() {
     const { names } = this.state
     const { citys } = this.state
->>>>>>> c67868997a8cac2ad4f415403c71f483c8f10f20
     return (
       <div>
         <TopNav current="home" />
