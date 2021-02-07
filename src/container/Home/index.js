@@ -28,9 +28,9 @@ export default class index extends Component {
         console.log(res)
       })
     }
-
+    
   render() {
-    const {names}=this.state
+    const {names}=this.state 
     return (
       <div>
         <TopNav current="home" />
