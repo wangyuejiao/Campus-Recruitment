@@ -73,7 +73,7 @@ export default class index extends Component {
                                         <HeartOutlined style={this.state.a}onClick={this.handleColor}/>
                                     </div>
                                 </Col>
-
+                            
                             </Row>
                             <Row align='middle' style={{ color: 'white', fontSize: '25px', fontFamily: 'lisu', marginTop: '-4px' }}>感兴趣</Row>
                             <Button style={{ border:'none',marginLeft:'2%',marginTop:'3.5%', width: '18%', height: '40px', backgroundColor: '#19a8ad', color: 'white', fontFamily: 'lisu', fontSize: '25px', borderRadius: '6px', textAlign: 'center', lineHeight: '35px' }} >投递简历</Button>

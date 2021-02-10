@@ -6,18 +6,24 @@ import Search from "../../components/Search/Search";
 import RightNav from "../../components/RightNav/RightNav.js";
 import Lunbo from '../../components/LunBo'
 import Position from '../../components/Position'
-import { Row, Col, Divider, Image, Button } from "antd";
+import { Row, Col, Divider,Image, Button,Popover } from "antd";
+import Card from '../../components/Card'
 
 const style = { background: 'white', padding: '8px 0', height: '15vh' };
 const a = ['互联网', '金融', '教育培训', '医疗健康', '法律咨询', '供应-物流', '采购贸易']
 const b = ['互联网', '金融', '教育培训', '医疗健康', '法律咨询', '供应-物流']
+const content=(date)=>{
+  // console.log(date)
+  <Card date={date} />
+}
 export default class index extends Component {
   constructor(props) {
     super(props);
     this.state = {
       names: [],
       citys: [],
-      position: []
+      position: [],
+      divide: [] //职业分类
     }
   }
 
@@ -26,10 +32,10 @@ export default class index extends Component {
       .then(res => res.json())
       .then(res => {
         this.setState({
-          names: res.list[0].type_name
+          divide: res.list
         })
-
         console.log(res.list[0].type_name)
+        console.log(res.list[0].direction[0].direction_name)
       })
 
 
@@ -39,7 +45,7 @@ export default class index extends Component {
         this.setState({
           citys: res.list
         })
-        console.log(res.list)
+        // console.log(res.list)
       })
 
 
@@ -52,7 +58,6 @@ export default class index extends Component {
         console.log('hot',res.list)
       })
   }
-
 
   render() {
     const { names } = this.state
@@ -72,14 +77,23 @@ export default class index extends Component {
             <Divider style={{ margin: 0, height: '2px', backgroundColor: '#D0DDE3' }} />
             <Row justify='space-around' align='middle'
               style={{ width: '100%', backgroundColor: '#F3F3F3' }}>
-              <Col span={6} style={{ backgroundColor: 'white' }}>
-                <Row justify='center' align='middle'>  {/*获取后台数据循环*/}
-                  <Col span={6}>{names}</Col>
-                  <Col span={4}>123</Col>
-                  <Col span={4}>123</Col>
-                  <Col span={4}>123</Col>
-                  <Col span={4}>更多+图标</Col>
+              <Col span={8} style={{ backgroundColor: 'white' }}>
+                {this.state.divide.map((item,index)=>(
+                  <Row justify='space-around' align='middle'>  {/*获取后台数据循环*/}
+                  <Col span={4}>{item.type_name}</Col>
+                  <Col span={5} >{item.direction[0].direction_name}</Col>
+                  <Col span={5} >{item.direction[1].direction_name}</Col>
+                  <Col span={4}>
+                  <Popover placement="right" content={<Card date={item.direction} />} trigger="hover">
+                    <Button>
+                    更多
+                    <i className="iconfont">&#xe860;</i>
+                    </Button>
+                  </Popover>
+                  
+                    </Col>
                 </Row>
+                ))}
               </Col>
               <Col span={12}>
                 <Lunbo />
