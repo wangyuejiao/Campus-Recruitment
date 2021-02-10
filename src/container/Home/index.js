@@ -6,7 +6,7 @@ import Search from "../../components/Search/Search";
 import RightNav from "../../components/RightNav/RightNav.js";
 import Lunbo from '../../components/LunBo'
 import Position from '../../components/Position'
-import { Row, Col, Divider,Image, Button } from "antd";
+import { Row, Col, Divider, Image, Button } from "antd";
 
 const style = { background: 'white', padding: '8px 0', height: '15vh' };
 const a = ['互联网', '金融', '教育培训', '医疗健康', '法律咨询', '供应-物流', '采购贸易']
@@ -16,10 +16,11 @@ export default class index extends Component {
     super(props);
     this.state = {
       names: [],
-      citys: []
+      citys: [],
+      position: []
     }
   }
-  
+
   componentDidMount() {
     fetch("http://42.192.102.128:3000/common/positionDivide")
       .then(res => res.json())
@@ -40,12 +41,23 @@ export default class index extends Component {
         })
         console.log(res.list)
       })
+
+
+    fetch("http://42.192.102.128:3000/common/postHot")
+      .then(res => res.json())
+      .then(res => {
+        this.setState({
+          position: res.list
+        })
+        console.log('hot',res.list)
+      })
   }
 
 
   render() {
     const { names } = this.state
     const { citys } = this.state
+    const { position } = this.state
     return (
       <div>
         <TopNav current="home" />
@@ -76,26 +88,13 @@ export default class index extends Component {
             {/* 分割线颜色 */}
             <Row style={{ backgroundColor: '#F3F3F3' }} justify='center' align='middle'>
               <Col span={8}>
-                <Divider style={{ border: 'grey' }}>热门岗位</Divider>
+                <Divider style={{ border: 'grey' ,fontSize:'25px' }}>热门岗位</Divider>
               </Col>
             </Row>
-            <Row style={{ backgroundColor: '#F3F3F3', height: '10vh' }} justify='center' align='middle'>
+            <Row style={{ backgroundColor: '#F3F3F3',paddingTop:'2%' }} justify='center' align='middle'>
               <Col span={2} ></Col>
               <Col span={20}>
-                <Row style={{ backgroundColor: 'white', height: '8vh' }} justify='center' align='middle'>
-                  {a.map((item, index) => (
-                    <Col span={3}>{item}</Col>
-                  )
-                  )}
-                </Row>
-              </Col>
-              <Col span={2} ></Col>
-            </Row>
-            <Row style={{ backgroundColor: 'red', height: '5vh' }}></Row>
-            <Row style={{ backgroundColor: '#F3F3F3', height: '35vh' }} justify='center' align='middle'>
-              <Col span={2} style={{ backgroundColor: 'green', height: '35vh' }}></Col>
-              <Col span={20}>
-                <Row align='middle'  >
+                {/* <Row align='middle'  >
                   <Col span={6} style={{ backgroundColor: 'white' }}>
                     <Row>
                       <Col span={2}></Col>
@@ -120,34 +119,69 @@ export default class index extends Component {
                       <Col span={3} style={{ fontSize: '10px' }}>已上市</Col>
                     </Row>
                   </Col>
+                </Row> */}
+                <Row style={{ backgroundColor: '#F3F3F3', paddingLeft: '10%', paddingRight: '10%'}} justify='space-around' align='middle'>
+                  {position.map((item, index) => (
+                    <Col span={7} style={{ marginBottom: '3%', backgroundColor: 'white',padding:'1%',border:'1px solid #BBBBBB' }}>
+                      <Row justify='space-between' align='middle' >
+                        <Col style={{ fontWeight: 'bold',fontSize:'16px' }}>{item.post_name}</Col>
+                        <Col style={{ color: '#EA7835' }}>{item.wages_min}k-{item.wages_max}k</Col>
+                      </Row>
+                      <Row justify='start' align='middle' style={{paddingTop:'5px',fontSize:'13px'}}>
+                        <Col>{item.city}</Col>
+                        <Divider type="vertical" style={{backgroundColor:'#BBBBBB'}}/>
+                       {
+                       (item.experience_min==item.experience_max)?  <Col>经验不限</Col>: <Col>{item.experience_min}年-{item.experience_max}年</Col>
+                
+                       }
+                       <Divider type="vertical"  style={{backgroundColor: '#BBBBBB'}}/>
+                       <Col>{item.education}</Col>
+                        
+                      </Row>
+                      <Divider style={{ marginTop: '10px', height: '2px', backgroundColor: '#F3F3F3' }} />
+                      <Row justify='start' align='middle' style={{marginTop:'-15px',fontSize:'13px'}}>
+                        <img
+                          width='15%'
+                          style={{marginBottom: '5px' }}
+                          src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                        />
+                        <Col  style={{marginLeft:'5px'}}>{item.company_name}</Col>
+                        
+                        <Col style={{marginLeft:'30px'}}>{item.industry_area}</Col>
+                        <Divider type="vertical"  style={{backgroundColor: '#BBBBBB'}}/>
+                        <Col>{item.financing}</Col>
+                      </Row>
+                    </Col>
+                  ))}
+
                 </Row>
               </Col>
-              <Col span={2} style={{ backgroundColor: 'green', height: '35vh' }}></Col>
+              <Col span={2} ></Col>
             </Row>
             <Row style={{ backgroundColor: '#F3F3F3', height: '10vh' }} justify='center' >
               <Button style={{ paddingTop: '0px', width: '12%', height: '35px', backgroundColor: '#3fb0e6', color: 'white', fontFamily: 'lisu', fontSize: '25px', borderRadius: '6px', textAlign: 'center', lineHeight: '35px' }} >查看更多</Button>
             </Row>
             <Row style={{ backgroundColor: '#F3F3F3' }} justify='center' >
               <Col span={8}>
-                <Divider style={{ border: 'grey' }}>热门城市</Divider>
+                <Divider style={{ border: 'grey' ,fontSize:'25px'}}>热门城市</Divider>
               </Col>
             </Row>
-            <Row style={{ backgroundColor: '#F3F3F3',paddingLeft:'10%',paddingRight:'10%' }} justify='space-around' align='middle'>
-              {citys.map((item,index)=>(
-                <Col span={5} style={{marginBottom:'3%'}}>
-                <Row justify='space-around' align='middle' >
-                <img
-                width='40%'
-                           style={{borderRadius:'50%',marginBottom:'10px'}}
-                            src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-                          />
-                </Row>
-                <Row justify='space-around' align='middle'>
-                {item.city}
-                </Row>
-              </Col>
+            <Row style={{ backgroundColor: '#F3F3F3', paddingLeft: '10%', paddingRight: '10%' }} justify='space-around' align='middle'>
+              {citys.map((item, index) => (
+                <Col span={5} style={{ marginBottom: '3%' }}>
+                  <Row justify='space-around' align='middle' >
+                    <img
+                      width='40%'
+                      style={{ borderRadius: '50%', marginBottom: '10px' }}
+                      src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                    />
+                  </Row>
+                  <Row justify='space-around' align='middle'>
+                    {item.city}
+                  </Row>
+                </Col>
               ))}
-               
+
             </Row>
             <Row style={{ backgroundColor: '#F3F3F3', height: '10vh' }} justify='center' >
               <Button style={{ paddingTop: '0px', width: '12%', height: '35px', backgroundColor: '#3fb0e6', color: 'white', fontFamily: 'lisu', fontSize: '25px', borderRadius: '6px', textAlign: 'center', lineHeight: '35px' }} >查看更多</Button>

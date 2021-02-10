@@ -7,7 +7,7 @@ import { Row, Col, Divider, Image, Button, Icon } from "antd";
 import {
     HeartOutlined,
 } from '@ant-design/icons';
-
+import qs from 'querystring'
 export default class index extends Component {
     constructor(props){
         super(props);
@@ -15,9 +15,26 @@ export default class index extends Component {
             a:{
                 color:'white',
                 fontSize: '25px',
-            }
+            },
+
         }
     }
+    componentDidMount(){
+    fetch("http://42.192.102.128:3000/common/postInfo",{
+        method: 'POST',
+        headers: {
+          'Accept':"application/json,text/plain,*/*",
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body:qs.stringify({
+            post_id:'0',
+          })
+
+      }).then(res=>res.json())
+      .then(data=>{
+        console.log(data)
+      })
+}
 
     handleColor=()=>{
         this.setState({

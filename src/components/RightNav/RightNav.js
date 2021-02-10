@@ -25,15 +25,15 @@ export default function RightNav(props) {
             mode="inline"
             theme="dark"
             inlineCollapsed="true"
-            style={{ height: "100%", width: "100%" }}
+            style={{ height: "100%", width: "100%",paddingTop:'40px' }}
           >
-            <Menu.Item key="1" icon={<i className="iconfont">&#xe620;</i>} onClick={showDrawer}>
+            <Menu.Item key="1" icon={<i className="iconfont" >&#xe620;</i>} onClick={showDrawer}>
               我的收藏
             </Menu.Item>
-            <Menu.Item key="2" icon={<i className="iconfont">&#xe661;</i>} onClick={showDrawer}>
+            <Menu.Item key="2" icon={<i className="iconfont" >&#xe661;</i>} onClick={showDrawer}>
               简历投递
             </Menu.Item>
-            <Menu.Item key="3" icon={<i className="iconfont">&#xeaa2;</i>} onClick={showDrawer}>
+            <Menu.Item key="3" icon={<i className="iconfont" >&#xeaa2;</i>} onClick={showDrawer}>
               我的面试
             </Menu.Item>
           </Menu>

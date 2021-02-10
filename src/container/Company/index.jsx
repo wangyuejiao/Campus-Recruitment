@@ -2,7 +2,8 @@ import { Col, Row } from "antd";
 import React, { Component } from "react";
 import TopNav from "../../components/topNav";
 import RightNav from "../../components/RightNav/RightNav.js";
-import { Divider, Menu, Breadcrumb, Alert } from "antd";
+import { Divider, Menu, Breadcrumb, Alert,PageHeader } from "antd";
+import Recruiting from '../../components/Recruiting'
 import {
   MailOutlined,
   AppstoreOutlined,
@@ -18,45 +19,57 @@ import {
 } from "react-router-dom";
 import "./index.css";
 
-const Apps = () => (
-    <div style={{height:'800px',width:'800px',backgroundColor:'red'}}></div>
-  );
 
-//   const breadcrumbNameMap = {
-//     '/apps': 'Application List',
-//     '/apps/1': 'Application1',
-//     '/apps/2': 'Application2',
-//     '/apps/1/detail': 'Detail',
-//     '/apps/2/detail': 'Detail',
-//   };
-//   const Home = withRouter(props => {
-//     const { location } = props;
-//     const pathSnippets = location.pathname.split('/').filter(i => i);
-//     const extraBreadcrumbItems = pathSnippets.map((_, index) => {
-//       const url = `/${pathSnippets.slice(0, index + 1).join('/')}`;
-//       return (
-//         <Breadcrumb.Item key={url}>
-//           <Link to={url}>{breadcrumbNameMap[url]}</Link>
-//         </Breadcrumb.Item>
-//       );
-//     });
-//     const breadcrumbItems = [
-//       <Breadcrumb.Item key="home">
-//         <Link to="/">公司简介</Link>
-//       </Breadcrumb.Item>,
-//     ].concat(extraBreadcrumbItems);
-//     return (
-//       <div className="demo">
-//         <div className="demo-nav">
-//           <Link to="/">公司简介</Link>
-//           <Link to="/apps">在招岗位</Link>
-//         </div>
-//       </div>
-//     );
-//   });
+
 
 export default class index extends Component {
-    
+    constructor(props){
+        super(props);
+        this.state={
+            introduce:{
+                color:'#19a8ad'
+            },
+            recruiting:{
+                color:'white'
+            },
+            page:'introduce'
+        }
+    }
+
+
+    jump=(page)=>{
+        console.log(page)
+        if(page==this.state.page){
+            
+        }
+        else{
+            if(page=='recruiting'){
+                this.setState({
+                    recruiting:{
+                        color:'#19a8ad'
+                    },
+                    introduce:{
+                        color:'white'
+                    },
+                    page:'recruiting'
+                })
+            }
+            else{
+                this.setState({
+                    introduce:{
+                        color:'#19a8ad'
+                    },
+                    recruiting:{
+                        color:'white'
+                    },
+                    page:'introduce'
+                })
+            }
+        }
+    }
+
+
+
   render() {
     return (
       <div>
@@ -100,7 +113,7 @@ export default class index extends Component {
                   />
                   C轮 &nbsp; &nbsp;2000人以上
                   <Divider
-                    type="vertical"
+                    type="vertical" 
                     style={{ marginTop: "1.5%", backgroundColor: "white" }}
                   />
                   文娱
@@ -139,16 +152,21 @@ export default class index extends Component {
                 </Row>
               </Col>
             </Row>
-            <Row>
+            <Row style={{backgroundColor:'#164c7b',paddingTop:'20px',fontSize:'15px',paddingBottom:'20px'}}>
               {/* <Introduce /> */}
-              <div className="demo-nav">
-        <Link to="/company/app">Home</Link>
-        <Link to="/company/apps">Application List</Link>
-      </div>
-      <Switch>
-        <Route path="/company/apps" component={Apps} />
-      </Switch>
-            </Row>
+                   <Col span={2} ></Col>
+                   <Col><Link to="/company"  style={this.state.introduce} onClick={()=>this.jump('introduce')}>公司简介</Link></Col>
+                   <Col style={{marginLeft:'60px'}}><Link to="/company/recruiting"   style={this.state.recruiting} onClick={()=>this.jump('recruiting')}>在招岗位</Link></Col>
+       </Row>
+       <Row>
+         <Col span={2}></Col>
+         <Col span={20}>
+       <Switch>
+                   <Route exact path="/company" component={Introduce} />
+                   <Route exact path='/company/recruiting' component={Recruiting} />
+            </Switch>
+            </Col>
+       </Row>
           </Col>
           <Col span={1}>
             <RightNav />
