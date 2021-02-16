@@ -75,27 +75,29 @@ export default class index extends Component {
               </Col>
             </Row>
             <Divider style={{ margin: 0, height: '2px', backgroundColor: '#D0DDE3' }} />
-            <Row justify='space-around' align='middle'
+            <Row justify='start' align='middle'
               style={{ width: '100%', backgroundColor: '#F3F3F3' }}>
-              <Col span={8} style={{ backgroundColor: 'white' }}>
+              <Col span={2}></Col>
+              <Col span={7} style={{ backgroundColor: 'white',border:'1px solid #BBBBBB',marginLeft:'2%',padding:'1%',paddingRight:'0'}}>
                 {this.state.divide.map((item,index)=>(
-                  <Row justify='space-around' align='middle'>  {/*获取后台数据循环*/}
-                  <Col span={4}>{item.type_name}</Col>
+                  <Row justify='space-around' align='middle' style={{marginBottom:'1%'}}>  {/*获取后台数据循环*/}
+                  <Col span={4} style={{fontWeight:'bold',fontSize:'18px'}}>{item.type_name}</Col>
                   <Col span={5} >{item.direction[0].direction_name}</Col>
                   <Col span={5} >{item.direction[1].direction_name}</Col>
-                  <Col span={4}>
-                  <Popover placement="right" content={<Card date={item.direction} />} trigger="hover">
-                    <Button>
-                    更多
+                  <Col span={1}>
+                  <Popover placement="right" content={<Card date={item.direction}  />} trigger="hover">
+                    {/* <Button>
+                    更多 */}
                     <i className="iconfont">&#xe860;</i>
-                    </Button>
+                    {/* </Button> */}
                   </Popover>
                   
                     </Col>
                 </Row>
                 ))}
               </Col>
-              <Col span={12}>
+              <Col span={2}></Col>
+              <Col span={10}>
                 <Lunbo />
               </Col>
             </Row>
@@ -108,33 +110,7 @@ export default class index extends Component {
             <Row style={{ backgroundColor: '#F3F3F3',paddingTop:'2%' }} justify='center' align='middle'>
               <Col span={2} ></Col>
               <Col span={20}>
-                {/* <Row align='middle'  >
-                  <Col span={6} style={{ backgroundColor: 'white' }}>
-                    <Row>
-                      <Col span={2}></Col>
-                      <Col span={13} style={{ fontWeight: 'bold' }} align='left'>JAVA工程师</Col>
-                      <Col span={9} style={{ color: 'red' }}>20k-40k</Col>
-                    </Row>
-                    <Row style={{ color: 'grey', fontSize: '10px' }}>
-                      <Col span={2}></Col>厦门 | 经验不限 |本科
-                    </Row>
-                    <Divider style={{ marginTop: '5px', height: '1px', backgroundColor: 'grey' }} />
-                    <Row style={{ marginTop: '7px', color: 'grey' }}>
-                      <Col span={2}></Col>
-                      <Col span={4} align='left'>
-                        <Image
-                          width={20}
-                          src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-                        />
-                      </Col >
-                      <Col span={4} style={{ fontSize: '10px' }} align='left'>京东</Col>
-                      <Col span={3} style={{ fontSize: '10px' }} align='left'>互联网</Col>
-                      <Col span={1} style={{ fontSize: '10px' }} align='left'>|</Col>
-                      <Col span={3} style={{ fontSize: '10px' }}>已上市</Col>
-                    </Row>
-                  </Col>
-                </Row> */}
-                <Row style={{ backgroundColor: '#F3F3F3', paddingLeft: '10%', paddingRight: '10%'}} justify='space-around' align='middle'>
+                <Row style={{ backgroundColor: '#F3F3F3'}} justify='space-around' align='middle'>
                   {position.map((item, index) => (
                     <Col span={7} style={{ marginBottom: '3%', backgroundColor: 'white',padding:'1%',border:'1px solid #BBBBBB' }}>
                       <Row justify='space-between' align='middle' >
@@ -180,7 +156,7 @@ export default class index extends Component {
                 <Divider style={{ border: 'grey' ,fontSize:'25px'}}>热门城市</Divider>
               </Col>
             </Row>
-            <Row style={{ backgroundColor: '#F3F3F3', paddingLeft: '10%', paddingRight: '10%' }} justify='space-around' align='middle'>
+            <Row style={{ backgroundColor: '#F3F3F3',paddingLeft:'3%',paddingRight:'3%',paddingTop:'2%'}} justify='space-around' align='middle'>
               {citys.map((item, index) => (
                 <Col span={5} style={{ marginBottom: '3%' }}>
                   <Row justify='space-around' align='middle' >

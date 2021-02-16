@@ -53,7 +53,7 @@ export default function Search() {
       onSelect={onSelect}
     //   onSearch={handleSearch}
     >
-      <Input.Search size="large" placeholder="搜索职位、公司" enterButton='搜索' />
+      <Input.Search size='large' placeholder="搜索职位、公司" enterButton='搜索' />
     </AutoComplete>
   );
 }

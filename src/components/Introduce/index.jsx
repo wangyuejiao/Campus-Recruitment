@@ -51,7 +51,8 @@ export default class index extends Component {
                          <Col style={{ fontSize: '15px', fontWeight: 'bold',marginTop:'40px'}}>公司标签</Col>
                     </Row>
                     <Row>
-                        
+                       <Col  style={{backgroundColor:'#75ead1',height:'30px',borderRadius:'10px',marginTop:'1%' ,width:'5%',lineHeight:'30px'}}>福利好</Col> 
+                       <Col  style={{backgroundColor:'#75ead1',height:'30px',borderRadius:'10px',marginTop:'1%' ,width:'5%',marginLeft:'20px',lineHeight:'30px'}}>待遇好</Col> 
                     </Row>
                 </Col>
 
