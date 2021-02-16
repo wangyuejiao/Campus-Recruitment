@@ -18,9 +18,11 @@ export default class index extends Component {
             },
             requirement: [],
             duty: [],
+            date:{}
         }
     }
     componentDidMount() {
+        console.log(this.props.location.search)
         fetch("http://42.192.102.128:3000/common/postInfo", {
             method: 'POST',
             headers: {
@@ -28,15 +30,16 @@ export default class index extends Component {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
             body: qs.stringify({
-                post_id: '0',
+                post_id: this.props.location.search.split('=')[1],
             })
 
         }).then(res => res.json())
             .then(res => {
-                console.log(res.list.requirement)
+                console.log(res)
                 this.setState({
                     requirement: res.list.requirement,
-                    duty: res.list.duty
+                    duty: res.list.duty,
+                    date:res.list.post_info
                 }
                 )
             })
@@ -52,7 +55,8 @@ export default class index extends Component {
     }
 
     render() {
-        console.log(this.props.location.state)
+        console.log(this.state.date)
+        const { date } =this.state
         return (
             <div>
                 <TopNav current='position' />
@@ -63,14 +67,14 @@ export default class index extends Component {
                             <Col span={14} style={{}}>
                                 <Row style={{ height: '5vh' }}></Row>
                                 <Row align='middle' >
-                                    <Row  align='middle' justify='start'><Col span={24} style={{ fontSize: '25px', color: 'white', fontFamily: 'lisu',marginLeft:'10%' }}>{this.props.location.state.post_name}</Col></Row>
-                                    <Col span={4} style={{ fontSize: '20px', color: '#ea7840', fontFamily: 'lisu',marginLeft:'8%' }} align='center'>{this.props.location.state.wages_min}k-{this.props.location.state.wages_max}k</Col>
+                                    <Row  align='middle' justify='start'><Col span={24} style={{ fontSize: '25px', color: 'white', fontFamily: 'lisu',marginLeft:'10%' }}>{date.post_name}</Col></Row>
+                                    <Col span={4} style={{ fontSize: '20px', color: '#ea7840', fontFamily: 'lisu',marginLeft:'8%' }} align='center'>{date.wages_min}k-{date.wages_max}k</Col>
                                 </Row>
                                 <Row align='middle' style={{ color: 'grey', paddingLeft: '2%', marginTop: '5px' }}>
                                     <>
-                                        {this.props.location.state.city}
+                                        {date.city}
                                         <Divider type="vertical" style={{ backgroundColor: 'grey' }} />
-                                        {this.props.location.state.education}
+                                        {date.education}
                                         <Col style={{ paddingLeft: '135px' }}>云链招聘</Col>
                                     </>
                                 </Row>

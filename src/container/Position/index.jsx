@@ -4,7 +4,7 @@ import RightNav from "../../components/RightNav/RightNav.js";
 import { Row, Col, Divider, Image, Button, Icon, Pagination } from "antd";
 import Search from "../../components/Search/Search";
 import Recruiting from '../../components/Recruiting'
-import {Redirect} from "react-router-dom"
+import {Link} from "react-router-dom"
 import qs from 'querystring'
 
 export default class extends Component {
@@ -14,17 +14,7 @@ export default class extends Component {
             current: 1,
             recruiting: ['1', '2'],
             num: 0,
-            jump:false,
-            date:{}
         }
-    }
-    jump=(item)=>{
-        console.log(item)  
-        this.setState({
-            jump:true,
-            date:item
-        })
-
     }
     onChange = page => {
         console.log(page);
@@ -88,12 +78,6 @@ export default class extends Component {
             })
     }
     render() {
-        if(this.state.jump){
-            return (<Redirect to={{
-              pathname:'/position/positions',
-              state:this.state.date
-            }} />)
-          }
         const { recruiting } = this.state
         return (
             <div>
@@ -123,8 +107,8 @@ export default class extends Component {
                                  <Row align='middle' justify='start'>
                                     {this.state.recruiting.map((item, index) => (
                                         // <Redirect to={{pathname:'/position',state:item}}>
-
-                                        <Col span={21} style={{ marginTop: '2%', border: '1px solid #BBBBBB' }} onClick={()=>this.jump(item)}>
+                                        <Link to={{pathname:'/position/positions',search: '?code='+item.post_id,}}>
+                                        <Col span={21} style={{ marginTop: '2%', border: '1px solid #BBBBBB' }} >
                                             <Row>
                                                 <Col span={8} style={{ marginTop: '2%', marginLeft: '3%' }}>
                                                     <Row style={{ color: '#3c9f8a', fontSize: '17px', fontWeight: 'bold' }}>
@@ -157,7 +141,8 @@ export default class extends Component {
                                             </Row>
                                             <Row align='middle' justify='center' style={{ backgroundColor: '#c4c0c0', padding: '1%' }}>{item.good}</Row>
                                         </Col>
-                                        // </Redirect>
+                                        </Link>
+                                        
                                     ))
                                    
                                     }
