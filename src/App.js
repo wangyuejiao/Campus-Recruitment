@@ -5,6 +5,7 @@ import Home from './container/Home'
 import Position from './container/Position'
 import Company from './container/Company'
 import Positions from './components/Positions';
+import Companys from './components/Companys';
 import { HashRouter as Router, Route, Link, Switch } from 'react-router-dom';
 
 function App() {
@@ -19,8 +20,9 @@ function App() {
         <Switch>
           <Route exact path='/' component={Home} />
           <Route  exact path='/position' component={Position} />
-          <Route  path='/company' component={Company} />
+          <Route exact path='/company' component={Company} />
           <Route path='/position/positions' component={Positions} />
+          <Route path='/companyinfo' component={Companys} />
         </Switch>
       </Router>
     </div>

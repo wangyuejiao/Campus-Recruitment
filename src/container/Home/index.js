@@ -8,6 +8,7 @@ import Lunbo from '../../components/LunBo'
 import Position from '../../components/Position'
 import { Row, Col, Divider,Image, Button,Popover } from "antd";
 import Card from '../../components/Card'
+import {Link} from "react-router-dom"
 
 const style = { background: 'white', padding: '8px 0', height: '15vh' };
 const a = ['互联网', '金融', '教育培训', '医疗健康', '法律咨询', '供应-物流', '采购贸易']
@@ -112,12 +113,14 @@ export default class index extends Component {
               <Col span={20}>
                 <Row style={{ backgroundColor: '#F3F3F3'}} justify='space-around' align='middle'>
                   {position.map((item, index) => (
-                    <Col span={7} style={{ marginBottom: '3%', backgroundColor: 'white',padding:'1%',border:'1px solid #BBBBBB' }}>
+                    <Col span={7}>
+                    <Link to={{pathname:'/position/positions',search: '?code='+item.post_id,}} display='none'>
+                    <Col span={24} style={{ marginBottom: '7%', backgroundColor: 'white',padding:'5%',border:'1px solid #BBBBBB' }}>
                       <Row justify='space-between' align='middle' >
-                        <Col style={{ fontWeight: 'bold',fontSize:'16px' }}>{item.post_name}</Col>
+                        <Col style={{ fontWeight: 'bold',fontSize:'16px',color:'black' }}>{item.post_name}</Col>
                         <Col style={{ color: '#EA7835' }}>{item.wages_min}k-{item.wages_max}k</Col>
                       </Row>
-                      <Row justify='start' align='middle' style={{paddingTop:'5px',fontSize:'13px'}}>
+                      <Row justify='start' align='middle' style={{paddingTop:'5px',fontSize:'13px',color:'black'}}>
                         <Col>{item.city}</Col>
                         <Divider type="vertical" style={{backgroundColor:'#BBBBBB'}}/>
                        {
@@ -129,7 +132,7 @@ export default class index extends Component {
                         
                       </Row>
                       <Divider style={{ marginTop: '10px', height: '2px', backgroundColor: '#F3F3F3' }} />
-                      <Row justify='start' align='middle' style={{marginTop:'-15px',fontSize:'13px'}}>
+                      <Row justify='start' align='middle' style={{marginTop:'-15px',fontSize:'13px',color:'black'}}>
                         <img
                           width='15%'
                           style={{marginBottom: '5px' }}
@@ -142,14 +145,21 @@ export default class index extends Component {
                         <Col>{item.financing}</Col>
                       </Row>
                     </Col>
-                  ))}
-
+                    </Link> 
+                    </Col>
+                 ))}
                 </Row>
               </Col>
               <Col span={2} ></Col>
             </Row>
-            <Row style={{ backgroundColor: '#F3F3F3', height: '10vh' }} justify='center' >
-              <Button style={{ paddingTop: '0px', width: '12%', height: '35px', backgroundColor: '#3fb0e6', color: 'white', fontFamily: 'lisu', fontSize: '25px', borderRadius: '6px', textAlign: 'center', lineHeight: '35px' }} >查看更多</Button>
+            <Row style={{ backgroundColor: '#F3F3F3', height: '10vh',paddingTop:'2%',paddingBottom:'5%' }} justify='center' >
+               
+               <Link to={{pathname:'/position'}}>
+            
+                       <Button style={{ paddingTop:'0px', height: '35px', width:'180px',backgroundColor: '#3fb0e6', color: 'white', fontFamily: 'lisu', fontSize: '25px', borderRadius: '6px', textAlign: 'center', lineHeight: '35px' }} >查看更多</Button>
+                       
+              </Link>
+             
             </Row>
             <Row style={{ backgroundColor: '#F3F3F3' }} justify='center' >
               <Col span={8}>

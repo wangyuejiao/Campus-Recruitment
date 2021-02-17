@@ -125,7 +125,7 @@ export default class extends Component {
                                                 <Col span={8}></Col>
                                                 <Col span={4} style={{ marginTop: '2%', marginLeft: '2%' }}>
                                                     <Row style={{ color: '#3c9f8a', fontSize: '17px', fontWeight: 'bold' }}>{item.company_name}</Row>
-                                                    <Row style={{ marginTop: '2%', fontSize: '14px' }}>{item.industry_area}&nbsp;/&nbsp;{item.financing}&nbsp;/&nbsp;{item.scale_min}-{item.scale_max}人</Row>
+                                                    <Row style={{ marginTop: '2%', fontSize: '14px' ,color:'black'}}>{item.industry_area}&nbsp;/&nbsp;{item.financing}&nbsp;/&nbsp;{item.scale_min}-{item.scale_max}人</Row>
                                                 </Col>
                                                 <Col span={2}>
                                                     <Row >
@@ -139,7 +139,7 @@ export default class extends Component {
                                                 
                                                 </Col>
                                             </Row>
-                                            <Row align='middle' justify='center' style={{ backgroundColor: '#c4c0c0', padding: '1%' }}>{item.good}</Row>
+                                            <Row align='middle' justify='center' style={{ backgroundColor: '#c4c0c0', padding: '1%' ,color:'black' }}>{item.good}</Row>
                                         </Col>
                                         </Link>
                                         

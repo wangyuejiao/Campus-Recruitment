@@ -200,15 +200,15 @@ export default class index extends Component {
             <Row style={{backgroundColor:'#164c7b',paddingTop:'20px',fontSize:'15px',paddingBottom:'20px'}}>
               {/* <Introduce /> */}
                    <Col span={2} ></Col>
-                   <Col><Link to="/company"  style={this.state.introduce} onClick={()=>this.jump('introduce')}>公司简介</Link></Col>
-                   <Col style={{marginLeft:'60px'}}><Link to={{pathname:"/company/recruiting"}}  style={this.state.recruiting} onClick={()=>this.jump('recruiting')}>在招岗位</Link></Col>
+                   <Col><Link to="/companyinfo"  style={this.state.introduce} onClick={()=>this.jump('introduce')}>公司简介</Link></Col>
+                   <Col style={{marginLeft:'60px'}}><Link to={{pathname:"/companyinfo/recruiting"}}  style={this.state.recruiting} onClick={()=>this.jump('recruiting')}>在招岗位</Link></Col>
        </Row>
        <Row>
          <Col span={2}></Col>
          <Col span={20}>
        <Switch>
-                   <Route exact path="/company" component={Introduce} />
-                   <Route exact path='/company/recruiting' component={Recruiting} />
+                   <Route exact path="/companyinfo" component={Introduce} />
+                   <Route exact path='/companyinfo/recruiting' component={Recruiting} />
             </Switch>
             </Col>
        </Row>

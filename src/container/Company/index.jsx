@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import TopNav from '../../components/topNav'
 import RightNav from "../../components/RightNav/RightNav.js";
-import { Row, Col, Divider, Image, Button, Icon,Pagination } from "antd";
+import { Row, Col, Divider, Image, Button, Icon, Pagination } from "antd";
 import { Link } from 'react-router-dom'
 import qs from 'querystring'
 
@@ -9,74 +9,75 @@ export default class extends Component {
   constructor(props) {
     super(props);
     this.state = {
-        current: 1,
-        recruiting: ['1','2'],
-        num:0
+      current: 1,
+      num: 0,
+      company: []
     }
-}
-onChange = page => {
+  }
+  onChange = page => {
     console.log(page);
     this.setState({
-        current: page,
+      current: page,
     });
-    fetch("http://42.192.102.128:3000/company/recruitmentPost", {
-            method: 'POST',
-            headers: {
-                'Accept': "application/json,text/plain,*/*",
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: qs.stringify({
-                company_id: '1',
-                page:page
-            })
-
-        }).then(res => res.json())
-            .then(res => {
-                 this.setState({
-                       recruiting:res.list   
-                 })
-                console.log(res)
-            })
-};
-componentDidMount() {
-    fetch("http://42.192.102.128:3000/company/recruitmentNum", {
-        method: 'POST',
-        headers: {
-            'Accept': "application/json,text/plain,*/*",
-            'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body: qs.stringify({
-            company_id: '1',
-        })
+    fetch("http://42.192.102.128:3000/company", {
+      method: 'POST',
+      headers: {
+        'Accept': "application/json,text/plain,*/*",
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: qs.stringify({
+        city: '1',
+        page: page
+      })
 
     }).then(res => res.json())
-        .then(res => {
-             this.setState({
-                   num:res.list[0].num     
-             })
-            console.log(res)
+      .then(res => {
+        this.setState({
+         company: res.list
         })
-        fetch("http://42.192.102.128:3000/company/recruitmentPost", {
-            method: 'POST',
-            headers: {
-                'Accept': "application/json,text/plain,*/*",
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: qs.stringify({
-                company_id: '1',
-                page:'1'
-            })
+        console.log(res)
+      })
+  };
+  componentDidMount() {
+    fetch("http://42.192.102.128:3000/company/companyNum", {
+      method: 'POST',
+      headers: {
+        'Accept': "application/json,text/plain,*/*",
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: qs.stringify({
+        city: '1',
+      })
 
-        }).then(res => res.json())
-            .then(res => {
-                 this.setState({
-                       recruiting:res.list   
-                 })
-                console.log(res)
-            })
-}
+    }).then(res => res.json())
+      .then(res => {
+        this.setState({
+          num: res.list[0].num
+        })
+        console.log(res)
+      })
+    fetch("http://42.192.102.128:3000/company", {
+      method: 'POST',
+      headers: {
+        'Accept': "application/json,text/plain,*/*",
+        'Content-Type': 'application/x-www-form-urlencoded'
+      },
+      body: qs.stringify({
+        city: '1',
+        page: '1'
+      })
+
+    }).then(res => res.json())
+      .then(res => {
+        this.setState({
+          company: res.list
+        })
+        console.log(res.list)
+      })
+  }
 
   render() {
+    const { company } = this.state
     return (
       <div>
         <TopNav current='company' />
@@ -93,33 +94,44 @@ componentDidMount() {
               </Col>
             </Row>
             <Row style={{ backgroundColor: '#F3F3F3' }} justify='space-around' align='middle'>
-              <Col span={5} style={{ backgroundColor: 'white',border:'1px solid #BBBBBB',marginTop:'3%',marginBottom:'3%' }}>
-                <Row style={{marginTop:'5%'}}>
-                  <Col span={10} >   
-                      <img
-                        width='60%'
-                        height='80%'
-                        style={{marginLeft:'10%',borderRadius:'10px' }}
-                        src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-                      />
-                    
-                  </Col>
+              {company.map((item, index) => (
+                
+                
+                  
+                    <Col span={5} style={{ backgroundColor: 'white', border: '1px solid #BBBBBB', marginTop: '3%', marginBottom: '3%', color: 'black' }}>
+                      <Row style={{ marginTop: '5%' }}>
+                      <Link to={{ pathname: '/companyinfo' }}>
+                        <Col span={10} >
+                          <img
+                            width='60%'
+                            height='80%'
+                            style={{ marginLeft: '10%', borderRadius: '10px' }}
+                            src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                          />
 
-                  <Col style={{marginLeft:'8%'}}>
-                    <Row justify="end" style={{marginBottom:'10%',marginTop:'5%'}}>美图秀秀</Row>
-                    <Row justify="end" style={{fontSize:'12px'}}> 不需要融资<Divider type='vertical' style={{backgroundColor:'#BBBBBB',marginTop:'4%'}}/>互联网 </Row>
-                  </Col>
-                </Row>
-                <hr style={{backgroundColor:'#BBBBBB'}}/>
-                <Row style={{marginLeft:'9%',fontSize:'12px'}}>在招岗位：120</Row>
+                        </Col>
 
-              </Col>
+                        <Col style={{ marginLeft: '8%', color: 'black' }}>
+                          <Row justify="end" style={{ marginBottom: '10%', marginTop: '5%' }}>{item.company_name}</Row>
+                          <Row justify="end" style={{ fontSize: '12px' }}> {item.financing}<Divider type='vertical' style={{ backgroundColor: '#BBBBBB', marginTop: '4%' }} />{item.industry_area}</Row>
+                        </Col>
+                        </Link>
+                      </Row>
+                      
+                      <Divider type='horizontal'/>
+                      <Row style={{ marginLeft: '9%', fontSize: '12px', color: 'black' }}>在招岗位：{item.position_num}</Row>
+                      
+                    </Col>
+                  
+               
+              ))
+              }
 
-             
+
             </Row>
             <Row style={{ backgroundColor: '#F3F3F3' }} justify='space-around' align='middle'>
-            <Pagination current={this.state.current} total={this.state.num} onChange={this.onChange} defaultPageSize={8} 
-                  style={{marginTop:'4%',align:'center'}}/>
+              <Pagination current={this.state.current} total={this.state.num} onChange={this.onChange} defaultPageSize={9}
+                style={{ marginTop: '4%', align: 'center' }} />
             </Row>
           </Col>
           <Col span={1}>
