@@ -3,7 +3,7 @@ import "./index.css";
 import "antd/dist/antd.css";
 import { Row, Col, Menu } from "antd";
 import { Link } from "react-router-dom";
-import { Input, Space } from "antd";
+import { Input, Space, Avatar, Image } from "antd";
 import { AudioOutlined } from "@ant-design/icons";
 
 const navigation = {
@@ -46,7 +46,7 @@ export default class index extends Component {
           >
             <i className="iconfont">&#xe606;</i>
             &nbsp;
-            <span>北京</span>
+            <span >北京</span>
           </Row>
         </Col>
         <Col span={6}>
@@ -59,7 +59,7 @@ export default class index extends Component {
             >
               <Menu.Item key="home">
                 <Row align="middle" justify="space-around" style={{ height: "100%" }}>
-                <Link to="/">
+                <Link to="/" style={{color:'white'}}>
                 <i className="iconfont">&#xe635;</i>
                 &nbsp;
                   首页</Link>
@@ -67,7 +67,7 @@ export default class index extends Component {
               </Menu.Item>
               <Menu.Item key="position">
                 <Row align="middle" justify="space-around" style={{ height: "100%" }}>
-                <Link to="/position">
+                <Link to="/position" style={{color:'white'}}>
                 <i className="iconfont">&#xe660;</i>
                 &nbsp;
                   职位</Link>
@@ -75,7 +75,7 @@ export default class index extends Component {
               </Menu.Item>
               <Menu.Item key="company">
                 <Row align="middle" justify='space-around' style={{ height: "100%" }}>
-                  <Link to="/company">
+                  <Link to="/company" style={{color:'white'}}>
                   <i className="iconfont">&#xe7ce;</i>
                   &nbsp;
                       公司
@@ -85,8 +85,25 @@ export default class index extends Component {
             </Menu>
           </Row>
         </Col>
-        <Col span={9}></Col>
-        <Col span={2}></Col>
+        <Col span={5}></Col>
+
+        
+        {/* 点击头像，进入个人中心页面 */}
+        <Col span={7}>
+        <Link to='/user'>
+        <Row align='middle' style={{height:'100%'}}>
+        <Col span={10}><Row justify='end' align='middle' style={{height: "100%",color:'white',paddingLeft:'50px'}}>张鑫涛</Row></Col>
+        <Col span={1}></Col>
+          <Col span={2} style={{}}>
+              <Row justify='space-around' align='middle' style={{height: "100%"}}>
+                <Avatar style={{border:'1px solid white'}}  src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" /> 
+              </Row>
+              </Col>
+        </Row>
+           
+         
+        </Link>
+        </Col>
       </Row>
     );
   }

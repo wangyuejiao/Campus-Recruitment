@@ -12,6 +12,10 @@ export default class extends Component {
       current: 1,
       num: 0,
       company: [],
+      financing:[],
+      scale:[],
+      industry_area:[],
+      citys:[],
     };
   }
   onChange = (page) => {
@@ -74,7 +78,33 @@ export default class extends Component {
         });
         console.log(res.list);
       });
-  }
+
+     //数据库返回三个数组，所以为了使每个数组都可以显示，应该设置三个变量
+     fetch("http://42.192.102.128:3000/common/searchMenu")
+     .then(res => res.json())
+     .then(res => {
+       this.setState({
+         industry_area: res.list.industry_area,
+         scale:res.list.scale,
+         financing:res.list.financing
+       })
+       console.log(res.list.industry_area,res.list.scale,res.list.financing)
+      
+     })
+
+
+     //公司地点的接口
+      fetch("http://42.192.102.128:3000/common/cityAll")
+      .then(res => res.json())
+      .then(res => {
+        this.setState({
+          citys: res.list
+        })
+        console.log(res.list)
+      })
+
+}
+
 
   render() {
     const { company } = this.state;
@@ -93,12 +123,29 @@ export default class extends Component {
             >
               <Col span={2} style={{ marginLeft: "1%" }}></Col>
               <Col>
-                <Row style={{ marginTop: "30%" }}>公司地点:</Row>
+                <Row style={{ marginTop: "7%" }}>公司地点：
+                 {
+                   this.state.citys.map((item,index)=>(
+                      index<15? <Col style={{marginRight:'10px'}}>{item.city}</Col>:<Col></Col>
+                   ))
+                 }
+                </Row>
 
-                <Row style={{ marginTop: "30%" }}>融资阶段：</Row>
-                <Row style={{ marginTop: "30%" }}>公司规模：</Row>
-                <Row style={{ marginTop: "30%", marginBottom: "30%" }}>
+                <Row style={{ marginTop: "7%" }}>融资阶段：
+                {this.state.financing.map((item,index)=>(
+                                               <Col style={{marginRight:'10px'}}>{item.financing}</Col>
+                                   ))}
+                </Row>
+                <Row style={{ marginTop: "7%" }}>公司规模：
+                {this.state.scale.map((item,index)=>(
+                                               <Col  style={{marginRight:'10px'}}>{item.scale_min}-{item.scale_max}人</Col>
+                                   ))}
+                </Row>
+                <Row style={{ marginTop: "7%", marginBottom: "7%" }}>
                   行业领域：
+                  {this.state.industry_area.map((item,index)=>(
+                                               <Col  style={{marginRight:'10px'}}>{item.industry_area}</Col>
+                                   ))}
                 </Row>
               </Col>
             </Row>
@@ -178,7 +225,7 @@ export default class extends Component {
                 total={this.state.num}
                 onChange={this.onChange}
                 defaultPageSize={9}
-                style={{ marginTop: "4%", align: "center" }}
+                style={{ marginTop: "1%", align: "center" }}
               />
             </Row>
           </Col>

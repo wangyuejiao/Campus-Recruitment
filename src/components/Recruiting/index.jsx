@@ -24,7 +24,7 @@ export default class index extends Component {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
                 body: qs.stringify({
-                    company_id: '1',
+                    company_id: this.props.location.search.split('=')[1],
                     page:page
                 })
     
@@ -44,7 +44,7 @@ export default class index extends Component {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
             body: qs.stringify({
-                company_id: '1',
+                company_id: this.props.location.search.split('=')[1],
             })
 
         }).then(res => res.json())
@@ -61,7 +61,7 @@ export default class index extends Component {
                     'Content-Type': 'application/x-www-form-urlencoded'
                 },
                 body: qs.stringify({
-                    company_id: '1',
+                    company_id: this.props.location.search.split('=')[1],
                     page:'1'
                 })
     
@@ -76,7 +76,7 @@ export default class index extends Component {
 
     render() {
         const { recruiting } = this.state
- 
+        console.log(this.props.location.search.split('=')[1])
         return (
             <Row align='middle' justify='start'>
                 {this.state.recruiting.map((item,index)=>(

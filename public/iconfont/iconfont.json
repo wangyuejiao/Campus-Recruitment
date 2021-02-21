@@ -6,6 +6,83 @@
   "description": "",
   "glyphs": [
     {
+      "icon_id": "11474277",
+      "name": "data",
+      "font_class": "data",
+      "unicode": "e6f9",
+      "unicode_decimal": 59129
+    },
+    {
+      "icon_id": "19563383",
+      "name": "充电器",
+      "font_class": "2",
+      "unicode": "e636",
+      "unicode_decimal": 58934
+    },
+    {
+      "icon_id": "5185982",
+      "name": "邮箱",
+      "font_class": "-",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    },
+    {
+      "icon_id": "11169283",
+      "name": "手机",
+      "font_class": "shouji1",
+      "unicode": "e607",
+      "unicode_decimal": 58887
+    },
+    {
+      "icon_id": "16913155",
+      "name": "邮箱",
+      "font_class": "youxiang",
+      "unicode": "e649",
+      "unicode_decimal": 58953
+    },
+    {
+      "icon_id": "982373",
+      "name": "女",
+      "font_class": "nv",
+      "unicode": "e665",
+      "unicode_decimal": 58981
+    },
+    {
+      "icon_id": "15824658",
+      "name": "男",
+      "font_class": "nan",
+      "unicode": "e64e",
+      "unicode_decimal": 58958
+    },
+    {
+      "icon_id": "19691531",
+      "name": "火箭",
+      "font_class": "rocket-fill",
+      "unicode": "eb90",
+      "unicode_decimal": 60304
+    },
+    {
+      "icon_id": "12310346",
+      "name": "rocket_fill",
+      "font_class": "rocket_fill",
+      "unicode": "e891",
+      "unicode_decimal": 59537
+    },
+    {
+      "icon_id": "11641847",
+      "name": "公司-2-line",
+      "font_class": "gongsi--line",
+      "unicode": "e613",
+      "unicode_decimal": 58899
+    },
+    {
+      "icon_id": "19150000",
+      "name": "visualize-color",
+      "font_class": "visualize-color",
+      "unicode": "e8f3",
+      "unicode_decimal": 59635
+    },
+    {
       "icon_id": "8843664",
       "name": "向左",
       "font_class": "xiangzuo",

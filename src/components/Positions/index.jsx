@@ -18,7 +18,8 @@ export default class index extends Component {
             },
             requirement: [],
             duty: [],
-            date:{}
+            date:{},
+            good:[]
         }
     }
     componentDidMount() {
@@ -39,7 +40,8 @@ export default class index extends Component {
                 this.setState({
                     requirement: res.list.requirement,
                     duty: res.list.duty,
-                    date:res.list.post_info
+                    date:res.list.post_info,
+                    good:res.list.post_info.good
                 }
                 )
             })
@@ -90,12 +92,22 @@ export default class index extends Component {
                             <Row align='middle' style={{ color: 'white', fontSize: '25px', fontFamily: 'lisu', marginTop: '-4px' }}>感兴趣</Row>
                             <Button style={{ border: 'none', marginLeft: '2%', marginTop: '3.5%', width: '18%', height: '40px', backgroundColor: '#19a8ad', color: 'white', fontFamily: 'lisu', fontSize: '25px', borderRadius: '6px', textAlign: 'center', lineHeight: '35px' }} >投递简历</Button>
                         </Row>
-                        <Row style={{ fontSize: '22px', paddingLeft: '1%' }}>
+                        <Row style={{ fontSize: '22px', paddingLeft: '1%' ,marginTop:'2%'}}>
                             <Col span={2}></Col>职位诱惑
                         </Row>
-                        <Row style={{ fontSize: '15px', paddingLeft: '1%', height: '15vh' }}><Col span={2}></Col></Row>
-                        <Row style={{ fontSize: '22px', paddingLeft: '1%' }}>
-                            <Col span={2}></Col>职位诱惑
+                        <Row style={{ fontSize: '15px',paddingLeft:'1%',marginTop:'1%'
+                    }}>
+                            <Col span={2}>
+                            </Col>
+
+                            <Col style={{ padding: '0px', margin: '0px', textAlign: 'left' }}>
+                               {this.state.good}
+                            </Col>
+                        </Row>
+    
+
+                        <Row style={{ fontSize: '22px', paddingLeft: '1%',marginTop:'2%' }}>
+                            <Col span={2}></Col>职责要求
                         </Row>
                         <Row style={{ paddingLeft: '1%', marginTop: '1%' }}>
                             <Col span={2}></Col>岗位职责：
@@ -125,7 +137,7 @@ export default class index extends Component {
                                 }
                             </ol>
                         </Row>
-                        <Row style={{ fontSize: '22px', paddingLeft: '1%' }}>
+                        <Row style={{ fontSize: '22px', paddingLeft: '1%',marginTop:'2%' }}>
                             <Col span={2}></Col>工作地址
                         </Row>
                         <Row style={{ fontSize: '15px', paddingLeft: '1%', height: '15vh' }}><Col span={2}></Col>123</Row>

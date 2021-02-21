@@ -1,7 +1,7 @@
-import { Col, Row, Carousel, Divider } from 'antd'
+import { Col, Row, Carousel, Divider,Typography } from 'antd'
 import React, { Component } from 'react'
 import Lunbo from '../../components/LunBo'
-
+import qs from "querystring";
 
 const contentStyle = {
     height: '150px',
@@ -9,51 +9,112 @@ const contentStyle = {
     lineHeight: '150px',
     textAlign: 'center',
     background: '#364d79',
-    marginTop:'5px'
+    marginTop: '5px'
 };
 
-
+//公司简介文本显示
+const { Title, Paragraph, Text, Link } = Typography;
 
 export default class index extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            company: {},
+            environment: [],
+            lable: []
+        }
+    }
+    componentDidMount() {
+        fetch("http://42.192.102.128:3000/company/companyInfo", {
+            method: "POST",
+            headers: {
+                Accept: "application/json,text/plain,*/*",
+                "Content-Type": "application/x-www-form-urlencoded",
+            },
+            body: qs.stringify({
+                company_id: this.props.location.search.split('=')[1], //父传子·属性。用的是props，穿的是id，采用字符串分割成数组获取id
+            }),
+        })
+            .then((res) => res.json())
+            .then((res) => {
+                this.setState({
+                    company: res.list.company[0],
+                    environment: res.list.environment,
+                    lable: res.list.lable
+                });
+                console.log(res.list.environment);
+            })
+    }
     render() {
+        // console.log(this.state.company.environment)
+        console.log(this.props.location.search.split('=')[1])
         return (
             <Row align='middle' justify='start'>
                 <Col>
-                    <Row style={{ fontSize: '15px', fontWeight: 'bold',marginTop:'10px'}}>公司环境</Row>
+                          <Divider orientation="left"  style={{ fontSize: '15px', fontWeight: 'bold',border:'#BBBBBB' }}> 公司环境</Divider>
                     <Row>
-                        <Col span={7}>
-                            <Carousel autoplay>
-                                <div>
-                                    <h3 style={contentStyle}>1</h3>
-                                </div>
-                                <div>
-                                    <h3 style={contentStyle}>2</h3>
-                                </div>
-                                <div>
-                                    <h3 style={contentStyle}>3</h3>
-                                </div>
-                                <div>
-                                    <h3 style={contentStyle}>4</h3>
-                                </div>
-                            </Carousel>,
+                        <Col span={10}>
+                            {
+                                    // environment是个数组，如果里面没有图片，数组长度是0
+                                 this.state.environment.length==0?(
+                                     <div style={{width:'400px',height:'150px'}}>
+                                          <i className="iconfont" style={{fontSize:'80px',marginTop:'5%',color:'#BBBBBB'}}>&#xe891;</i>
+                                          <p style={{fontSize:'13px',color:'#BBBBBB'}}> 该公司有点懒，未上传公司环境图片</p>
+                                     </div>
+                                     
+                                 ):(
+                                    <Carousel autoplay>
+                                    {this.state.environment.map((item, index) => (
+                                        <Row justify='center' align='center'>
+                                            <img src={item.image}
+                                                style={{
+                                                    width: '100%',
+                                                    height: '35vh'
+                                                }}
+                                            />
+                                        </Row>
+    
+                                    ))}
+    
+                                </Carousel>
+                                 )
+                            }
                          </Col>
                     </Row>
-                     <Row justify='start'>
-                         <Col style={{ fontSize: '15px', fontWeight: 'bold'}}>公司简介</Col>
-                         <Col  span={20}>
-                             <Divider style={{backgroundColor:'#BBBBBB',marginTop:'13px',marginLeft:'15px',height:'1.5px'}}></Divider>
-                         </Col>
-                     </Row>
-                     <Row style={{marginTop:'5px'}}>
-                         腾讯公司成立于
-                     </Row>
-                     <Row justify='start'>
-                         <Col style={{ fontSize: '15px', fontWeight: 'bold',marginTop:'40px'}}>公司标签</Col>
-                    </Row>
-                    <Row>
-                       <Col  style={{backgroundColor:'#75ead1',height:'30px',borderRadius:'10px',marginTop:'1%' ,width:'5%',lineHeight:'30px'}}>福利好</Col> 
-                       <Col  style={{backgroundColor:'#75ead1',height:'30px',borderRadius:'10px',marginTop:'1%' ,width:'5%',marginLeft:'20px',lineHeight:'30px'}}>待遇好</Col> 
-                    </Row>
+                  
+                    
+                  {/* return后面只能返回一个标签，判断是否上传了公司简介 */}
+                           {this.state.company.company_profile==''?(<div></div>):(
+                                 <Row>
+                                      <Divider orientation="left"  style={{ fontSize: '15px', fontWeight: 'bold',border:'#BBBBBB' }}> 公司简介</Divider> 
+                                       <Typography>
+                                           <Paragraph align='left' style={{width:'90%'}}>
+                                                     {this.state.company.company_profile}
+                                        </Paragraph>
+                                      </Typography>
+                                </Row>
+                           )
+                       }
+
+
+                    {/* 判断是否上传了公司标签 */}
+                       {
+                           this.state.lable.length==0?(<div></div>):(
+                               <Row>
+                                    <Divider orientation="left"  style={{ fontSize: '15px', fontWeight: 'bold',border:'#BBBBBB' }}> 公司标签</Divider>
+                                   <Row>
+                                       {
+                                            this.state.lable.map((item, index) => (
+                                                <Row>
+                                               <Col style={{ backgroundColor: '#75ead1', height: '30px', borderRadius: '10px', marginTop: '1%', lineHeight: '30px', marginRight: '40px' }} span={15}>{item.label}</Col>
+                                               </Row>
+                                     ))
+                                        }
+                                 </Row>
+                         </Row>
+                           )
+                       }
+                   
                 </Col>
 
             </Row>

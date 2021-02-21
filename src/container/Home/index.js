@@ -171,9 +171,10 @@ export default class index extends Component {
                 <Col span={5} style={{ marginBottom: '3%' }}>
                   <Row justify='space-around' align='middle' >
                     <img
-                      width='40%'
+                      width='100vh'
+                      height='100vh'
                       style={{ borderRadius: '50%', marginBottom: '10px' }}
-                      src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                      src={item.image}
                     />
                   </Row>
                   <Row justify='space-around' align='middle'>
@@ -184,7 +185,9 @@ export default class index extends Component {
 
             </Row>
             <Row style={{ backgroundColor: '#F3F3F3', height: '10vh' }} justify='center' >
-              <Button style={{ paddingTop: '0px', width: '12%', height: '35px', backgroundColor: '#3fb0e6', color: 'white', fontFamily: 'lisu', fontSize: '25px', borderRadius: '6px', textAlign: 'center', lineHeight: '35px' }} >查看更多</Button>
+              <Link to={{pathname:'/city'}}>
+              <Button style={{ paddingTop:'0px', height: '35px', width:'180px',backgroundColor: '#3fb0e6', color: 'white', fontFamily: 'lisu', fontSize: '25px', borderRadius: '6px', textAlign: 'center', lineHeight: '35px' }} >查看更多</Button>
+              </Link>
             </Row>
 
           </Col>

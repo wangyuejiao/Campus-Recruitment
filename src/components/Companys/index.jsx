@@ -34,7 +34,10 @@ export default class index extends Component {
                 color:'white'
             },
             page:this.props.location.pathname.split('/')[2]?'recruiting':'introduce',
-            num:''
+            num:'',
+            company:{},   //company对象
+            environment:[],
+            lable:[]
         }
     }
 
@@ -56,6 +59,28 @@ export default class index extends Component {
              num:res.list[0].num     
        })
       console.log(res.list[0].num)
+      })
+
+
+   //公司页面的logo
+    fetch("http://42.192.102.128:3000/company/companyInfo", {
+      method: "POST",
+      headers: {
+        Accept: "application/json,text/plain,*/*",
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: qs.stringify({
+        company_id: this.props.location.search.split('=')[1],
+      }),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        this.setState({
+          company: res.list.company[0],
+          environment:res.list.environment,
+          lable:res.list.lable
+        });
+        console.log( res.list.company);
       })
     }
 
@@ -116,6 +141,7 @@ export default class index extends Component {
 
   render() {
     var num={num:this.state.num}
+    console.log(this.state.company)
     return (
       <div>
         <TopNav current="company" />
@@ -125,48 +151,56 @@ export default class index extends Component {
               <Col span={2}></Col>
               <Col span={2}>
                 <Row
-                  justify="start"
+                  // justify="start"
                   style={{
                     fontSize: "25px",
                     color: "white",
                     fontFamily: "lisu",
                     marginLeft: "10px",
+                    paddingTop:'10px'
                   }}
                 >
-                  美图秀秀
+                  {this.state.company.company_name}
                 </Row>
                 <Row justify="start" align="middle">
-                  <img
+                  {
+                    this.state.company.logo==''?(
+                        <i className="iconfont" style={{fontSize:'50px',marginTop:'7%',marginLeft:'5%',color:'#BBBBBB'}}>&#xe613;</i>
+                    ):(<img
                     width="80%"
                     style={{
                       marginTop: "20px",
                       borderRadius: "5px",
                       marginLeft: "8px",
                     }}
-                    src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-                  />
+                    height='80vh'
+                    src={this.state.company.logo}
+                  />)
+                  }
+                  {/* ()循环，判断是否添加图片，用三元组 */}
+               
                 </Row>
               </Col>
               <Col span={7}>
                 <Row
                   style={{ marginTop: "13%", color: "white", fontSize: "16px" }}
                 >
-                  北京
+                  {this.state.company.city}
                   <Divider
                     type="vertical"
                     style={{ marginTop: "1.5%", backgroundColor: "white" }}
                   />
-                  C轮 &nbsp; &nbsp;2000人以上
+                  {this.state.company.financing}
                   <Divider
                     type="vertical" 
                     style={{ marginTop: "1.5%", backgroundColor: "white" }}
                   />
-                  文娱
+                  {this.state.company.scale_min}-{this.state.company.scale_max}人
                   <Divider
                     type="vertical"
                     style={{ marginTop: "1.5%", backgroundColor: "white" }}
                   />
-                  内容
+                 {this.state.company.industry_area} 
                 </Row>
                 <Row
                   style={{ marginTop: "2%", color: "white", fontSize: "15px" }}
@@ -200,8 +234,8 @@ export default class index extends Component {
             <Row style={{backgroundColor:'#164c7b',paddingTop:'20px',fontSize:'15px',paddingBottom:'20px'}}>
               {/* <Introduce /> */}
                    <Col span={2} ></Col>
-                   <Col><Link to="/companyinfo"  style={this.state.introduce} onClick={()=>this.jump('introduce')}>公司简介</Link></Col>
-                   <Col style={{marginLeft:'60px'}}><Link to={{pathname:"/companyinfo/recruiting"}}  style={this.state.recruiting} onClick={()=>this.jump('recruiting')}>在招岗位</Link></Col>
+                   <Col><Link to={{pathname:'/companyinfo', search: '?code=' + this.state.company.id,}}  style={this.state.introduce} onClick={()=>this.jump('introduce')}>公司简介</Link></Col>
+                   <Col style={{marginLeft:'60px'}}><Link to={{pathname:"/companyinfo/recruiting" ,search: '?code=' + this.state.company.id,}}  style={this.state.recruiting} onClick={()=>this.jump('recruiting')}>在招岗位</Link></Col>
        </Row>
        <Row>
          <Col span={2}></Col>

@@ -6,6 +6,12 @@ import Position from './container/Position'
 import Company from './container/Company'
 import Positions from './components/Positions';
 import Companys from './components/Companys';
+import City from './components/City'
+import Hobby from './components/Hobby'
+import User from './container/User'
+import Like from './components/Like'
+import Toudi from './components/Toudi'
+import Connect from  './components/Connect'
 import { HashRouter as Router, Route, Link, Switch } from 'react-router-dom';
 
 function App() {
@@ -23,6 +29,12 @@ function App() {
           <Route exact path='/company' component={Company} />
           <Route path='/position/positions' component={Positions} />
           <Route path='/companyinfo' component={Companys} />
+          <Route path='/city' component={City}/>
+          <Route path='/hobby' component={Hobby}/>
+          <Route exact path='/user' component={User} />
+          <Route exact path='/like' component={Like} />
+          <Route exact path='/toudi' component={Toudi} />
+          <Route exact path='/connect' component={Connect} />
         </Switch>
       </Router>
     </div>
