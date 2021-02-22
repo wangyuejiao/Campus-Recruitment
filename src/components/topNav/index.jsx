@@ -5,6 +5,7 @@ import { Row, Col, Menu } from "antd";
 import { Link } from "react-router-dom";
 import { Input, Space, Avatar, Image } from "antd";
 import { AudioOutlined } from "@ant-design/icons";
+import { Map, Marker, InfoWindow, Markers } from 'react-amap';   //定位
 
 const navigation = {
   backgroundColor: "#79bcdc",
@@ -27,6 +28,28 @@ export default class index extends Component {
     console.log("click ", e);
     this.setState({ current: e.key }); //将当前状态改为点击的东西
   };
+  positionhandle=()=>{
+    console.log('123')
+    fetch("http://restapi.amap.com/v3/ip?key=1d4c7b76e61b49cc7f8142075b84d6c9")
+      .then(res => res.json())
+      .then(res => {
+        this.setState({
+          city:res.city,
+          adcode:res.adcode
+        })
+      })
+
+  }
+  componentDidMount () {
+    fetch("http://restapi.amap.com/v3/ip?key=1d4c7b76e61b49cc7f8142075b84d6c9")
+    .then(res => res.json())
+    .then(res => {
+      this.setState({
+        city:res.city,
+        adcode:res.adcode
+      })
+  }
+    )}
   render() {
     const { current } = this.state;  //使current为状态的值
     return (
@@ -38,7 +61,7 @@ export default class index extends Component {
           </Row>
         </Col>
         <Col span={1}></Col>
-        <Col span={1}>
+        <Col span={2}>
           <Row
             align="middle"
             justify="center"
@@ -46,7 +69,7 @@ export default class index extends Component {
           >
             <i className="iconfont">&#xe606;</i>
             &nbsp;
-            <span >北京</span>
+            <span onClick={()=>this.positionhandle()}>{this.state.city}</span>
           </Row>
         </Col>
         <Col span={6}>
@@ -89,7 +112,7 @@ export default class index extends Component {
 
         
         {/* 点击头像，进入个人中心页面 */}
-        <Col span={7}>
+        <Col span={6}>
         <Link to='/user'>
         <Row align='middle' style={{height:'100%'}}>
         <Col span={10}><Row justify='end' align='middle' style={{height: "100%",color:'white',paddingLeft:'50px'}}>张鑫涛</Row></Col>

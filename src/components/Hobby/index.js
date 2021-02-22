@@ -15,17 +15,28 @@ import {
 
 export default class index extends Component {
     state = {
-        current: 'hobby',
+        current: this.props.location.pathname.split('/')[2], //获取当前页面的最后一个字符串
       };
-    
+
+      //state只会记住刚刚第一次进来的state，每次改变后current值需要重新加在
+      //监听路由的随时变化
+      componentDidMount() {
+        this.props.history.listen(() => {
+          this.setState({
+            current: this.props.location.pathname.split('/')[2]
+          })
+        })
+    }
       handleClick = e => {
         console.log('click ', e);
         this.setState({ current: e.key,
          });
+         console.log(e.key)
       };
     
     render() {
         const { current } = this.state;
+        console.log( this.props.location.pathname.split('/')[2])
         return (
             <div>
                 <TopNav />
@@ -34,8 +45,11 @@ export default class index extends Component {
                         <Row style={{ marginTop: '5%' }}>
                             <Col span={2}></Col>
                             <Col style={{ border: '1px solid #BBBBBB', width: '100%',height:'550px' }} span={19}>
-                                <Menu onClick={this.handleClick} selectedKeys={[current]} mode="horizontal" style={{fontSize:'20px',fontFamily:'cursive'}} >
-                                    <Menu.Item key="hobby">
+                                <Menu onClick={this.handleClick} 
+                                      selectedKeys={[current]} 
+                                      mode="horizontal" 
+                                      style={{fontSize:'20px',fontFamily:'cursive'}} >
+                                    <Menu.Item key="like">
                                           <Link to="/hobby/like" >
                                                 感兴趣
                                           </Link>

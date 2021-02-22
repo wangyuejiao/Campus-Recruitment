@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Col, Row, Divider, Pagination } from 'antd'
 import qs from 'querystring'
+import {Link} from "react-router-dom" 
 
 export default class index extends Component {
 
@@ -62,6 +63,7 @@ export default class index extends Component {
                 },
                 body: qs.stringify({
                     company_id: this.props.location.search.split('=')[1],
+                    
                     page:'1'
                 })
     
@@ -80,6 +82,7 @@ export default class index extends Component {
         return (
             <Row align='middle' justify='start'>
                 {this.state.recruiting.map((item,index)=>(
+                    <Link to={{pathname:'/position/positions', search: '?code=' + item.post_id,}} style={{color:'black'}} >
                     <Col span={21} style={{ marginTop: '2%', border: '1px solid #BBBBBB' }}>
                         <Row>
                             <Col span={8} style={{ marginTop: '2%', marginLeft: '3%' }}>
@@ -112,6 +115,7 @@ export default class index extends Component {
                         </Row>
                         <Row align='middle' justify='center' style={{ backgroundColor: '#c4c0c0', padding: '1%' }}>{item.good}</Row>
                     </Col>
+                    </Link>
 
                 ))
 
