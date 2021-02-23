@@ -13,13 +13,18 @@ export default class index extends Component {
         super(props);
         this.state = {
             a: {
+                color: 'red',
+                fontSize: '25px',
+            },
+            b:{
                 color: 'white',
                 fontSize: '25px',
             },
             requirement: [],
             duty: [],
             date:{},
-            good:[]
+            good:[],
+            collection:false
         }
     }
     componentDidMount() {
@@ -45,15 +50,84 @@ export default class index extends Component {
                 }
                 )
             })
+
+            // 判断该用户是否感兴趣
+            fetch("http://42.192.102.128:3000/users/isCollection", {
+                method: 'POST',
+                headers: {
+                    'Accept': "application/json,text/plain,*/*",
+                    'Content-Type': 'application/x-www-form-urlencoded'
+                },
+                body: qs.stringify({
+                   user_id:'1',
+                   position_id:this.props.location.search.split('=')[1],
+                })
+    
+            }).then(res => res.json())
+                .then(res => {
+                    console.log(res)
+                    this.setState({
+                       collection:res.collection
+                    }
+                    )
+                })
     }
 
-    handleColor = () => {
-        this.setState({
-            a: {
-                color: 'red',
-                fontSize: '25px',
-            }
-        })
+    
+
+    //当用户点击取消感兴趣时，调用取消接口
+    deletehandleColor=()=>{
+        fetch("http://42.192.102.128:3000/users/deleteCollection", {
+            method: 'POST',
+            headers: {
+                'Accept': "application/json,text/plain,*/*",
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: qs.stringify({
+               user_id:'1',
+               position_id:this.props.location.search.split('=')[1],
+            })
+
+        }).then(res => res.json())
+            .then(res => {
+                console.log(res)
+                this.setState({
+                   collection:false,
+                   a: {
+                    color: 'white',
+                    fontSize: '25px',
+                },
+                
+                }
+                )
+            })
+    }
+
+    //当用户点击感兴趣时，调用感兴趣接口
+    addhandleColor=()=>{
+        fetch("http://42.192.102.128:3000/users/addCollection", {
+            method: 'POST',
+            headers: {
+                'Accept': "application/json,text/plain,*/*",
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: qs.stringify({
+               user_id:'1',
+               position_id:this.props.location.search.split('=')[1],
+            })
+
+        }).then(res => res.json())
+            .then(res => {
+                console.log(res)
+                this.setState({
+                   collection:true,
+                   b: {
+                    color: 'red',
+                    fontSize: '25px',
+                },
+                }
+                )
+            })
     }
 
     render() {
@@ -77,14 +151,22 @@ export default class index extends Component {
                                         {date.city}
                                         <Divider type="vertical" style={{ backgroundColor: 'grey' }} />
                                         {date.education}
-                                        <Col style={{ paddingLeft: '135px' }}>云链招聘</Col>
+                                        <Col style={{ paddingLeft: '135px' }}>{date.company_name}</Col>
                                     </>
                                 </Row>
                             </Col>
                             <Row align='middle'>
                                 <Col span={2}>
                                     <div className="icons-list">
-                                        <HeartOutlined style={this.state.a} onClick={this.handleColor} />
+                                        {
+                                            this.state.collection?(
+                                                <HeartOutlined style={this.state.a} onClick={this.deletehandleColor}/>):
+                                                (
+                                                <HeartOutlined style={this.state.b} onClick={this.addhandleColor} />
+                                                )
+                                             
+                                        }
+                                        {/* <HeartOutlined style={this.state.a} onClick={this.handleColor} /> */}
                                     </div>
                                 </Col>
 

@@ -1,11 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Menu, Affix, Drawer, Row, Col, Divider } from "antd";
 import { Link } from "react-router-dom";
+import qs from'querystring'
+import { constants } from "fs";
 
 const { SubMenu } = Menu;
 export default function RightNav(props) {
   const [top, setTop] = useState(0);
+  const post_id= useRef(0); //post_id是变量，setPost是改变post_id的函数，把useState中的值赋值给post_id
 
+  const data=useRef([])
   //设置三个点击函数，点击showDrawer1，让setVisible1为true，表示抽屉可见，visible1, setVisible1变量
   const [visible1, setVisible1] = useState(false);
   const [visible2, setVisible2] = useState(false);
@@ -37,7 +41,54 @@ export default function RightNav(props) {
     height: '100vh',
     width: '100%',
   }
+  React.useEffect(()=>{
+      fetch("http://42.192.102.128:3000/users/collection", {
+          method: 'POST',
+          headers: {
+              'Accept': "application/json,text/plain,*/*",
+              'Content-Type': 'application/x-www-form-urlencoded'
+          },
+          body: qs.stringify({
+              user_id:"1",
+          })
+
+      }).then(res => res.json())
+          .then(res => {
+              // console.log(res.list)
+              post_id.current=res.list
+  })
+  // var temp=[]
+
+  // console.log( post_id.current)
+  
+  // console.log(temp)
+
+},[visible1])
+
+{(()=>{for(var i=0;i<post_id.current.length;i++){
+  console.log(1)
+  fetch("http://42.192.102.128:3000/users/postCollection", {
+    method: 'POST',
+    headers: {
+        'Accept': "application/json,text/plain,*/*",
+        'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    body: qs.stringify({
+        post_id:post_id.current[i].post_id,
+    })
+  }).then(res=>res.json())
+    .then(res=>{
+      console.log(res)
+      // temp.push(res.list)
+      // data.current.push(res.list)
+      // console.log(data.current)
+    })
+  }})()}
+
+{console.log(data.current)}
+ //post_is由于setPost函数的执行，会一直改变，所以useEffect函数一直会走，但是[visible1]是一个定值，不会变，所以只会执行一遍
   return (
+    
     <Affix offsetTop={top}>
       <div style={box}>
         <Row justify="end" style={{ height: "100%", width: '100%' }}>
@@ -75,12 +126,14 @@ export default function RightNav(props) {
             <Row align='middle'>
               <Row>
                 <Col style={{ fontWeight: 'bold', fontSize: '16px' }}>收藏的职位</Col>
-                <Link to={{pathname:'/hobby'}}><Col style={{ marginLeft: '120px', fontSize: '13px', marginTop: '5px',color:'black' }}>查看全部</Col></Link>
+                <Link to={{pathname:'/hobby/like'}}><Col style={{ marginLeft: '120px', fontSize: '13px', marginTop: '5px',color:'black' }}>查看全部</Col></Link>
               </Row>
               <Row style={{ paddingTop: '2%',marginTop:'5%' }} justify='start' align='middle'>
                 <Col span={24}>
                   <Row  justify='space-around' align='middle'>
-                      {/* <Link to={{pathname:'/position/positions',search: '?code='+item.post_id,}} display='none'> */}
+                    
+
+                     
                       <Col span={24} style={{ marginBottom: '7%', backgroundColor: 'white', padding: '5%', border: '1px solid #BBBBBB' }}>
                         <Row justify='space-between' align='middle' >
                           <Col style={{ fontWeight: 'bold', fontSize: '16px', color: 'black' }}>java工程师</Col>
@@ -108,6 +161,7 @@ export default function RightNav(props) {
                           <Col>D轮及以上</Col>
                         </Row>
                       </Col>
+                      
                   </Row>
                 </Col>
                 {/* <Col span={2} ></Col> */}
@@ -127,7 +181,7 @@ export default function RightNav(props) {
             <Row align='middle'>
               <Row>
                 <Col style={{ fontWeight: 'bold', fontSize: '16px' }}>投递简历的职位</Col>
-                <Link to={{pathname:'/hobby'}}><Col style={{ marginLeft: '85px', fontSize: '13px', marginTop: '5px',color:'black' }}>查看全部</Col></Link>
+                <Link to={{pathname:'/hobby/toudi'}}><Col style={{ marginLeft: '85px', fontSize: '13px', marginTop: '5px',color:'black' }}>查看全部</Col></Link>
               </Row>
               <Row style={{ paddingTop: '2%',marginTop:'5%' }} justify='start' align='middle'>
                 <Col span={24}>
@@ -179,7 +233,7 @@ export default function RightNav(props) {
             <Row align='middle'>
               <Row>
                 <Col style={{ fontWeight: 'bold', fontSize: '16px' }}>沟通过的职位</Col>
-                <Link to={{pathname:'/hobby'}}><Col style={{ marginLeft: '95px', fontSize: '13px', marginTop: '5px',color:'black' }}>查看全部</Col></Link>
+                <Link to={{pathname:'/hobby/connect'}}><Col style={{ marginLeft: '95px', fontSize: '13px', marginTop: '5px',color:'black' }}>查看全部</Col></Link>
               </Row>
               <Row style={{ paddingTop: '2%',marginTop:'5%' }} justify='start' align='middle'>
                 <Col span={24}>
@@ -222,4 +276,4 @@ export default function RightNav(props) {
       </div>
     </Affix>
   );
-}
+          }
