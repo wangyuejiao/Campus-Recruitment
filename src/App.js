@@ -1,6 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import Login from './container/Login'
+import Register from "./container/Register";
 import Home from './container/Home'
 import Position from './container/Position'
 import Company from './container/Company'
@@ -20,10 +21,12 @@ function App() {
       {/* <header className="App-header">
         
       </header> */}
-      {/* <Login /> */}
+     
       {/* <Home /> */}
       <Router>
-        <Switch>
+         <Switch>
+          {/* <Login /> */}
+          <Register />
           <Route exact path='/' component={Home} />
           <Route  exact path='/position' component={Position} />
           <Route exact path='/company' component={Company} />
@@ -32,9 +35,9 @@ function App() {
           <Route path='/city' component={City}/>
           <Route path='/hobby' component={Hobby}/>
           <Route exact path='/user' component={User} />
-          <Route exact path='/like' component={Like} />
+          {/* <Route exact path='/like' component={Like} />
           <Route exact path='/toudi' component={Toudi} />
-          <Route exact path='/connect' component={Connect} />
+          <Route exact path='/connect' component={Connect} /> */}
         </Switch>
       </Router>
     </div>

@@ -44,7 +44,7 @@ export default class index extends Component {
                     <Col span={23}>
                         <Row style={{ marginTop: '5%' }}>
                             <Col span={2}></Col>
-                            <Col style={{ border: '1px solid #BBBBBB', width: '100%',height:'550px' }} span={19}>
+                            <Col style={{ border: '1px solid #BBBBBB', width: '100%',height:'100%' }} span={18}>
                                 <Menu onClick={this.handleClick} 
                                       selectedKeys={[current]} 
                                       mode="horizontal" 

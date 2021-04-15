@@ -1,66 +1,42 @@
 import React, { useState } from "react";
-import { Input, Select, InputNumber, AutoComplete, Cascader } from "antd";
-function getRandomInt(max, min = 0) {
-    return Math.floor(Math.random() * (max - min + 1)) + min; // eslint-disable-line no-mixed-operators
-  }
+import { Input, Select, InputNumber, AutoComplete, Cascader, Space} from "antd";
+import { SettingOutlined } from '@ant-design/icons';
 
+const { Option } = Select;
+const { Search1 } = Input;
+const selectBefore = (
+  <Select defaultValue="职位" className="select-before">
+    <Option value="职位">职位</Option>
+    <Option value="公司">公司</Option>
+  </Select>
+);
+
+// const suffix = (
+//   <AudioOutlined
+//     style={{
+//       fontSize: 16,
+//       color: '#1890ff',
+//     }}
+//   />
+// );
+
+const onSearch = value => console.log(value);
+// const selectAfter = (
+//   <Select defaultValue=".com" className="select-after">
+//     <Option value=".com">.com</Option>
+//     <Option value=".jp">.jp</Option>
+//     <Option value=".cn">.cn</Option>
+//     <Option value=".org">.org</Option>
+//   </Select>
+// );
 export default function Search() {
-  // const [options, setOptions] = useState([]);
-  const { Option } = Select;
-  const options = [
-    {
-      value: '北京',
-      label: '北京',
-      children: [
-        {
-          value: '前端开发',
-          label: '前端开发',
-          // children: [
-          //   {
-          //     value: 'xihu',
-          //     label: 'West Lake',
-          //   },
-          // ],
-        },
-      ],
-    },
-    {
-      value: '上海',
-      label: '上海',
-      children: [
-        {
-          value: 'java工程师',
-          label: 'java工程师',
-          // children: [
-          //   {
-          //     value: 'zhonghuamen',
-          //     label: 'Zhong Hua Men',
-          //   },
-          // ],
-        },
-      ],
-    },
-  ];
-  const onSelect = (value) => {
-    console.log('onSelect', value);
-  };
+  
   return (
-    // <AutoComplete
-    //   style={{
-    //     width: '100%',
-    //   }}
-    //   options={options}
-    //   onSelect={onSelect}
-    // >
-    //   <Input.Search size='large' placeholder="搜索职位、公司" enterButton='搜索' />
-      <Input.Group compact>
-    {/* <Select style={{ width: '30%' }} defaultValue="Home">
-      <Option value="Home">Home</Option> */}
-      {/* <Option value="Company">Company</Option> */}
-    {/* </Select> */}
-    <Cascader style={{ width: '70%' }} options={options} placeholder="Select Address" />
-  </Input.Group>
-    // </AutoComplete>
+    <div style={{ marginBottom: 16 }}>
+      
+      <Input addonBefore={selectBefore}  defaultValue="请输入公司或职位" />
+      
+    </div>
    
   );
 }

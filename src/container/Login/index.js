@@ -37,29 +37,50 @@ export default class index extends Component {
     return (
       <div>
         <Row style={box} justify="center" align="middle">
-          <Col span={2}></Col>
-          <Col span={10}>
-            <div className="content">
-              <Row>
+          <Col span={5}></Col>
+          <Col span={9} >
+            <div className="content"  >
+              <Row style={{borderRadius:'25px'}}>
                 <Col
-                  span={8}
+                  span={9}
                   order={1}
-                  style={{ height: "50vh",backgroundColor:'#F9FFFD' }}
+                  style={{ height: "50vh",backgroundColor:'#F9FFFD',borderRight:'1px solid #ccc',borderRadius:'25px' }}
                 >
-                  <Row justify='space-around' style={{height:'35%',borderBlock:'1px solid #BBBBBB'}}>
-                    <Row justify="space-around" align="middle">
-                    <i className="iconfont" style={{color:'#73D8A2',fontSize:'50px'}}>&#xe63a;</i>
-                    </Row>
-                  <Row style={{fontSize:'26px'}} justify="space-around" align="middle">校园招聘</Row>
+                 
+                  <Row justify='start' style={{height:'28%',borderBlock:'1px solid #BBBBBB',marginTop:'5vh',borderBottom:'1px solid #ccc' }}>
+                    <Col>
+                      <Row justify="space-around" align="middle">
+                         <i className="iconfont" style={{color:'#46a460',fontSize:'45px',marginLeft:'3vh'}}>&#xe63a;</i>
+                      </Row>
+                    </Col>
+                    <Col>
+                      <Row style={{fontSize:'26px',marginTop:'2vh',marginLeft:'2vh',color:'#81838f'}} justify="space-around" align="middle">校园招聘</Row>
+                    </Col>
                   </Row>
-                  <Row justify="space-around" align="middle">
-                    <i className="iconfont" style={{color:'#73D8A2',fontSize:'50px'}}>&#xe63a;</i>
-                    
-                  <Row style={{fontSize:'26px',fontFamily:'LiSu'}} justify="space-around" align="middle">校园招聘</Row>
+                  <Row justify="space-around" align="middle" style={{color:'#81838f',marginTop:'3vh'}}>
+                    <Col span={5}>
+                       <i className="iconfont" style={{fontSize:'35px',marginLeft:'4vh'}}>&#xe6ab;</i>
+                    </Col>
+                    <Col span={4}></Col>
+                    <Col span={14} >
+                       <Row style={{fontSize:'23px'}} justify="start" align="middle">迅速</Row>
+                       <Row style={{fontSize:'12px'}} justify="start" >能够快速的找到工作</Row>
+                    </Col>
+                  
                   </Row>
-                  <Row>123</Row>
+                  <Row justify="space-around" align="middle" style={{color:'#81838f',marginTop:'3vh'}}>
+                    <Col span={5}>
+                       <i className="iconfont" style={{fontSize:'45px',marginLeft:'4vh'}}>&#xe62b;</i>
+                    </Col>
+                    <Col span={4}></Col>
+                    <Col span={14} >
+                       <Row style={{fontSize:'21px'}} justify="start" align="middle">放心选</Row>
+                       <Row style={{fontSize:'12px'}} justify="start" >各大职业任你选</Row>
+                    </Col>
+                  
+                  </Row>
                 </Col>
-                <Col span={16} order={2} style={{ height: "50vh" }}>
+                <Col span={14} order={2} style={{ height: "50vh" }}>
                   <Layout style={{ height: "100%" }}>
                     <Header
                       style={{ backgroundColor: "white", height: "10%" }}
@@ -91,7 +112,7 @@ export default class index extends Component {
                           </Form.Item>
 
                           <Form.Item
-                            label="密码"
+                            label="密&nbsp;&nbsp;&nbsp;&nbsp;码"
                             name="password"
                             rules={[
                               {
@@ -103,52 +124,60 @@ export default class index extends Component {
                             <Input.Password />
                           </Form.Item>
                           <Form.Item {...tailLayout}>
+                            <Link to={{pathname:'/'}}>
                             <Button
-                              type="primary"
+                              
                               htmlType="submit"
                               block="true"
+                              style={{backgroundColor:'#3fb0e6',color:'white',fontWeight:'550',borderRadius:'5px'}}
                             >
                               登陆
                             </Button>
+                            </Link>
                           </Form.Item>
                         </Form>
                       </Row>
                       <Row
                         justify="space-around"
-                        style={{ paddingLeft: "15%", paddingRight: "15%" }}
+                        style={{ paddingLeft: "30%"}}
                       >
-                        <Col span={6}>
+                        <Col span={4}>
                           <Row justify="center" align="middle">
-                          <i className="iconfont" style={{color:'#5D9CCB'}}>&#xe614;</i>
+                          <i className="iconfont" style={{color:'#5D9CCB',fontSize:'22px'}}>&#xe614;</i>
                           </Row>
-                          <Row justify="center" align="middle">
-                          <span style={{ fontSize: "8px" }}>QQ</span>
-                          </Row>
+              
                         </Col>
-                        <Col span={6}>
+                        <Col span={2}></Col>
+                        <Col span={4}>
                           <Row justify="center" align="middle">
-                          <i className="iconfont" style={{color:'#73D8A2'}}>&#xe82c;</i>
+                          <i className="iconfont" style={{color:'#73D8A2',fontSize:'25px'}}>&#xe82c;</i>
                           </Row>
-                          <Row justify="center" align="middle">
-                          <span style={{ fontSize: "8px" }}>微信</span>
-                          </Row>
+                         
                         </Col>
-                        <Col span={6}>
-                          <Row justify="center" align="middle">
-                            <i className="iconfont">&#xe634;</i>
+                        <Col span={8}>
+                          <Row justify="end" align="middle">
+                            <i className="iconfont"  style={{color:'#f56467',fontSize:'25px'}}>&#xe648;</i>
                           </Row>
-                          <Row justify="center" align="middle">
+                          {/* <Row justify="end" align="middle">
                             <span style={{ fontSize: "8px" }}>手机</span>
-                          </Row>
+                          </Row> */}
                         </Col>
                       </Row>
                     </Content>
-                    <Footer style={{ backgroundColor: "white" }}>
-                      <Row justify="space-between" align="bottom">
-                        <Col span={4}>点击注册 </Col>
-                        <Col span={4}>返回首页 </Col>
+                   
+                      <Row style={{ backgroundColor:'white',paddingBottom:'2vh'}} >
+                        <Col span={2}></Col>
+                        <Col span={1}  style={{  }}>
+                            <i className="iconfont"  style={{fontSize:'15px'}}>&#xe647;</i>
+                        </Col>
+                        <Col span={5}>点击注册 </Col>
+                        <Col span={10}></Col>
+                        <Col span={5}>返回首页 </Col>
+                        <Col span={1}>
+                            <i className="iconfont"  style={{fontSize:'15px'}}>&#xe860;</i>
+                        </Col>
                       </Row>
-                    </Footer>
+                    
                   </Layout>
                 </Col>
               </Row>

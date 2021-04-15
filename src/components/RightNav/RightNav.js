@@ -41,51 +41,7 @@ export default function RightNav(props) {
     height: '100vh',
     width: '100%',
   }
-  React.useEffect(()=>{
-      fetch("http://42.192.102.128:3000/users/collection", {
-          method: 'POST',
-          headers: {
-              'Accept': "application/json,text/plain,*/*",
-              'Content-Type': 'application/x-www-form-urlencoded'
-          },
-          body: qs.stringify({
-              user_id:"1",
-          })
 
-      }).then(res => res.json())
-          .then(res => {
-              // console.log(res.list)
-              post_id.current=res.list
-  })
-  // var temp=[]
-
-  // console.log( post_id.current)
-  
-  // console.log(temp)
-
-},[visible1])
-
-{(()=>{for(var i=0;i<post_id.current.length;i++){
-  console.log(1)
-  fetch("http://42.192.102.128:3000/users/postCollection", {
-    method: 'POST',
-    headers: {
-        'Accept': "application/json,text/plain,*/*",
-        'Content-Type': 'application/x-www-form-urlencoded'
-    },
-    body: qs.stringify({
-        post_id:post_id.current[i].post_id,
-    })
-  }).then(res=>res.json())
-    .then(res=>{
-      console.log(res)
-      // temp.push(res.list)
-      // data.current.push(res.list)
-      // console.log(data.current)
-    })
-  }})()}
-
-{console.log(data.current)}
  //post_is由于setPost函数的执行，会一直改变，所以useEffect函数一直会走，但是[visible1]是一个定值，不会变，所以只会执行一遍
   return (
     
