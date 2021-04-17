@@ -124,12 +124,13 @@ export default class index extends Component {
                             <Input.Password />
                           </Form.Item>
                           <Form.Item {...tailLayout}>
-                            <Link to={{pathname:'/'}}>
+                            <Link to='/Companyhome'>
                             <Button
-                              
                               htmlType="submit"
                               block="true"
                               style={{backgroundColor:'#3fb0e6',color:'white',fontWeight:'550',borderRadius:'5px'}}
+                              onClick={this.props.location.pathname = '/Companyhome'}
+                              // onClick={console.log(this.props)}
                             >
                               登陆
                             </Button>

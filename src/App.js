@@ -12,8 +12,10 @@ import Hobby from './components/Hobby'
 import User from './container/User'
 import Like from './components/Like'
 import Toudi from './components/Toudi'
-import Connect from  './components/Connect'
+import Connect from './components/Connect'
 import { HashRouter as Router, Route, Link, Switch } from 'react-router-dom';
+
+import Companyhome from './container/Companyhome'
 
 function App() {
   return (
@@ -21,20 +23,22 @@ function App() {
       {/* <header className="App-header">
         
       </header> */}
-     
+
       {/* <Home /> */}
       <Router>
-         <Switch>
-          {/* <Login /> */}
-          <Register />
+        <Switch>
+          {/*  */}
+          <Login path='/login'/>
+          {/* <Register /> */}
           <Route exact path='/' component={Home} />
-          <Route  exact path='/position' component={Position} />
-          <Route exact path='/company' component={Company} />
+          <Route exact path='/Companyhome' component={Companyhome} />
+          <Route path='/position' component={Position} />
+          <Route path='/company' component={Company} />
           <Route path='/position/positions' component={Positions} />
           <Route path='/companyinfo' component={Companys} />
-          <Route path='/city' component={City}/>
-          <Route path='/hobby' component={Hobby}/>
-          <Route exact path='/user' component={User} />
+          <Route path='/city' component={City} />
+          <Route path='/hobby' component={Hobby} />
+          <Route path='/user' component={User} />
           {/* <Route exact path='/like' component={Like} />
           <Route exact path='/toudi' component={Toudi} />
           <Route exact path='/connect' component={Connect} /> */}
