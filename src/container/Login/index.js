@@ -2,8 +2,15 @@ import React, { Component } from "react";
 import "./index.css";
 import "antd/dist/antd.css";
 import { Row, Col, Form, Input, Button, Checkbox, Layout } from "antd";
+import qs from 'querystring'
 import { HashRouter as Router, Route, Link, Redirect } from "react-router-dom";
 export default class index extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+    }
+}
+      
   render() {
     const { Header, Footer, Sider, Content } = Layout;
     const layout = {
@@ -20,13 +27,31 @@ export default class index extends Component {
         span: 16,
       },
     };
+
     const onFinish = (values) => {
       console.log("Success:", values);
+       fetch("http://42.192.102.128:3000/users/login",{
+        method: 'POST',
+        headers: {
+          'Accept':"application/json,text/plain,*/*",
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body:qs.stringify({
+          phone:values.username,
+          password:values.password
+        })
+
+      }).then(res=>res.json())
+      .then(res=>{
+      console.log(res)
+    })
     };
 
     const onFinishFailed = (errorInfo) => {
       console.log("Failed:", errorInfo);
     };
+
+
     const box = {
       width: "100%",
       height: "100vh",
@@ -34,6 +59,8 @@ export default class index extends Component {
       backgroundRepeat: "no-repeat",
       backgroundSize: "100% 100%",
     };
+
+    
     return (
       <div>
         <Row style={box} justify="center" align="middle">
@@ -124,17 +151,13 @@ export default class index extends Component {
                             <Input.Password />
                           </Form.Item>
                           <Form.Item {...tailLayout}>
-                            <Link to='/Companyhome'>
                             <Button
                               htmlType="submit"
                               block="true"
                               style={{backgroundColor:'#3fb0e6',color:'white',fontWeight:'550',borderRadius:'5px'}}
-                              onClick={this.props.location.pathname = '/Companyhome'}
-                              // onClick={console.log(this.props)}
                             >
                               登陆
                             </Button>
-                            </Link>
                           </Form.Item>
                         </Form>
                       </Row>

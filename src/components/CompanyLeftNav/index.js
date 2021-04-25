@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import "./index.css";
 import "antd/dist/antd.css";
 import { Row, Col, Menu } from "antd";
+import {Link} from "react-router-dom"
 
 const navigation = {
   backgroundColor: "#164c7b",
@@ -26,12 +27,12 @@ export default class index extends Component {
         <Col span={3}></Col>
         <Col span={15} style={navigation1}>
            <ul  style={{listStyle:'none',height:0.9*window.screen.height}}>
-               <li style={{marginTop:'130%'}}>公司简介</li>
-               <li style={navigation2}>在招岗位</li>
-               <li style={navigation2}>简历盒子</li>
-               <li style={navigation2}>发布招聘</li>
-               <li style={navigation2}>未通过</li>
-               <li style={navigation2}>通过</li>
+               <li style={{marginTop:'130%'}} ><Link to='/companyhome/IntroduceCom'>公司简介</Link></li>
+               <li style={navigation2}><Link to='/companyhome/RecruitingCom'>在招岗位</Link></li>
+               <li style={navigation2}><Link to='/companyhome/OfferCom'>简历盒子</Link></li>
+               <li style={navigation2}><Link to='/companyhome/FabuCom'>发布招聘</Link></li>
+               <li style={navigation2}><Link to='/companyhome/Unpass'>未通过</Link></li>
+               <li style={navigation2}><Link to='/companyhome/Pass'>通过</Link></li>
            </ul>
       </Col>
    </Row>

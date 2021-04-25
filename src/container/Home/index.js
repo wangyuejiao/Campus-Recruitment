@@ -70,7 +70,7 @@ export default class index extends Component {
         <Row>
           <Col span={23}>
             <Row justify='center' align='middle'
-              style={{ height: '15%', width: '100%', backgroundColor: '#F3F3F3' }}>
+              style={{ height: '12%', width: '100%', backgroundColor: '#F3F3F3' }}>
               <Col span={14}>
                 <Search />
               </Col>

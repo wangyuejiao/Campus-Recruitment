@@ -10,9 +10,9 @@ import Companys from './components/Companys';
 import City from './components/City'
 import Hobby from './components/Hobby'
 import User from './container/User'
-import Like from './components/Like'
-import Toudi from './components/Toudi'
-import Connect from './components/Connect'
+import Tianxie from './container/Tianxie';
+import TianxieCom from './container/TianxieCom';
+
 import { HashRouter as Router, Route, Link, Switch } from 'react-router-dom';
 
 import Companyhome from './container/Companyhome'
@@ -29,9 +29,11 @@ function App() {
         <Switch>
           {/*  */}
           <Login path='/login'/>
+          <Tianxie path='/tianxie'/>
+          <TianxieCom path='/tianxieCom'/>
           {/* <Register /> */}
           <Route exact path='/' component={Home} />
-          <Route exact path='/Companyhome' component={Companyhome} />
+          <Route  path='/Companyhome' component={Companyhome} />
           <Route path='/position' component={Position} />
           <Route path='/company' component={Company} />
           <Route path='/position/positions' component={Positions} />
@@ -39,6 +41,7 @@ function App() {
           <Route path='/city' component={City} />
           <Route path='/hobby' component={Hobby} />
           <Route path='/user' component={User} />
+          
           {/* <Route exact path='/like' component={Like} />
           <Route exact path='/toudi' component={Toudi} />
           <Route exact path='/connect' component={Connect} /> */}

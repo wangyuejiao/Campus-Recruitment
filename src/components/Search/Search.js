@@ -32,7 +32,7 @@ const onSearch = value => console.log(value);
 export default function Search() {
   
   return (
-    <div style={{ marginBottom: 16 }}>
+    <div style={{ marginBottom: 1}}>
       
       <Input addonBefore={selectBefore}  defaultValue="请输入公司或职位" />
       

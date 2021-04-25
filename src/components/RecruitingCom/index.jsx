@@ -6,6 +6,7 @@ import Search from "../../components/Search/Search";
 import Recruiting from '../../components/Recruiting'
 import { Link } from "react-router-dom"
 import qs from 'querystring'
+import CompanyNav from "../../components/CompanyNav";
 
 export default class extends Component {
     constructor(props) {
@@ -33,7 +34,8 @@ export default class extends Component {
             },
             body: qs.stringify({
                 company_id: '1',
-                page: page
+                page: page,
+                num:3
             })
 
         }).then(res => res.json())
@@ -70,7 +72,8 @@ export default class extends Component {
             },
             body: qs.stringify({
                 company_id: '1',
-                page: '1'
+                page: '1',
+                num:3
             })
 
         }).then(res => res.json())
@@ -109,42 +112,10 @@ export default class extends Component {
         const { recruiting } = this.state
         return (
             <div>
-                <TopNav current='position' />
+              <CompanyNav />
                 <Row>
                     <Col span={23}>
-                        <Row justify='center' align='middle'
-                            style={{ height: '180px', width: '100%', backgroundColor: '#F3F3F3' }}>
-                            <Col span={14}>
-                                <Search />
-                            </Col>
-                        </Row>
-                        <Row align='middle' style={{ backgroundColor: '#d0dde3', border: '1px solid #BBBBBB' }} >
-                            <Col span={2} style={{ marginLeft: '1%' }}></Col>
-                            <Col >
-                                <Row style={{ marginTop: '7%' }}>公司地点：
-                                {
-                                        this.state.citys.map((item, index) => (
-                                            index < 15 ? <Col style={{ marginRight: '10px' }}>{item.city}</Col> : <Col></Col>   //设置所能显示的最大数量，用三元组
-                                        ))
-                                    }
-                                </Row>
-                                <Row style={{ marginTop: '7%' }}>融资阶段：
-                                  {this.state.financing.map((item, index) => (
-                                    <Col style={{ marginRight: '10px' }}>{item.financing}</Col>
-                                ))}
-                                </Row>
-                                <Row style={{ marginTop: '7%' }}>公司规模：
-                                {this.state.scale.map((item, index) => (
-                                    <Col style={{ marginRight: '10px' }}>{item.scale_min}-{item.scale_max}人</Col>
-                                ))}
-                                </Row>
-                                <Row style={{ marginTop: '7%', marginBottom: '7%' }}>行业领域：
-                                {this.state.industry_area.map((item, index) => (
-                                    <Col style={{ marginRight: '10px' }}>{item.industry_area}</Col>
-                                ))}
-                                </Row>
-                            </Col>
-                        </Row>
+                       
                         <Row>
                             <Col span={2}></Col>
                             <Col span={21}>
@@ -195,7 +166,7 @@ export default class extends Component {
                                 </Row>
 
                                 <Row>
-                                    <Pagination current={this.state.current} total={this.state.num} onChange={this.onChange} defaultPageSize={8}
+                                    <Pagination current={this.state.current} total={this.state.num} onChange={this.onChange} defaultPageSize={4}
                                         style={{ marginTop: '4%', align: 'center', marginLeft: '37%' }} />
                                 </Row>
 
@@ -203,9 +174,7 @@ export default class extends Component {
                         </Row>
 
                     </Col>
-                    <Col span={1}>
-                        <RightNav />
-                    </Col>
+                    
                 </Row>
             </div>
         )
