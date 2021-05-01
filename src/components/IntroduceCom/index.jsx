@@ -1,6 +1,5 @@
 import { Col, Row, Carousel, Divider,Typography } from 'antd'
 import React, { Component } from 'react'
-import Lunbo from '../../components/LunBo'
 import qs from "querystring";
 import CompanyNav from "../../components/CompanyNav";
 
@@ -22,7 +21,8 @@ export default class index extends Component {
         this.state = {
             company: {},
             environment: [],
-            lable: []
+            lable: [],
+            company_id:this.props.location.search.split('=')[1]
         }
     }
     componentDidMount() {
@@ -33,7 +33,7 @@ export default class index extends Component {
                 "Content-Type": "application/x-www-form-urlencoded",
             },
             body: qs.stringify({
-                company_id: 1 //父传子·属性。用的是props，穿的是id，采用字符串分割成数组获取id
+                company_id: this.state.company_id //父传子·属性。用的是props，穿的是id，采用字符串分割成数组获取id
             }),
         })
             .then((res) => res.json())
@@ -41,14 +41,11 @@ export default class index extends Component {
                 this.setState({
                     company: res.list.company[0],
                     environment: res.list.environment,
-                    lable: res.list.lable
+                    lable: res.list.lable,
                 });
-                console.log(res.list.environment);
             })
     }
     render() {
-        // console.log(this.state.company.environment)
-        // console.log(this.props.location.search.split('=')[1])
         return (
             <div>
               <CompanyNav />
@@ -85,8 +82,6 @@ export default class index extends Component {
                             }
                          </Col>
                     </Row>
-                  
-                    
                   {/* return后面只能返回一个标签，判断是否上传了公司简介 */}
                            {this.state.company.company_profile==''?(<div></div>):(
                                  <Row>

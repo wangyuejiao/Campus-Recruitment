@@ -27,9 +27,9 @@ export default class index extends Component {
         <Col span={3}></Col>
         <Col span={15} style={navigation1}>
            <ul  style={{listStyle:'none',height:0.9*window.screen.height}}>
-               <li style={{marginTop:'130%'}} ><Link to='/companyhome/IntroduceCom'>公司简介</Link></li>
-               <li style={navigation2}><Link to='/companyhome/RecruitingCom'>在招岗位</Link></li>
-               <li style={navigation2}><Link to='/companyhome/OfferCom'>简历盒子</Link></li>
+               <li style={{marginTop:'130%'}} ><Link to={{pathname:'/companyhome/IntroduceCom',search: '?company=' + this.props.company.id}} >公司简介</Link></li>
+               <li style={navigation2}><Link to={{pathname:'/companyhome/RecruitingCom',search: '?company=' + this.props.company.id}}>在招岗位</Link></li>
+               <li style={navigation2}><Link to={{pathname:'/companyhome/OfferCom',search: '?company=' + this.props.company.id}}>简历盒子</Link></li>
                <li style={navigation2}><Link to='/companyhome/FabuCom'>发布招聘</Link></li>
                <li style={navigation2}><Link to='/companyhome/Unpass'>未通过</Link></li>
                <li style={navigation2}><Link to='/companyhome/Pass'>通过</Link></li>

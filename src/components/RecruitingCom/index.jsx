@@ -12,6 +12,7 @@ export default class extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            company_id:this.props.location.search.split('=')[1],
             current: 1,
             recruiting: ['1', '2'],
             num: 0,
@@ -33,7 +34,7 @@ export default class extends Component {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
             body: qs.stringify({
-                company_id: '1',
+                company_id: this.state.company_id,
                 page: page,
                 num:3
             })
@@ -43,7 +44,6 @@ export default class extends Component {
                 this.setState({
                     recruiting: res.list
                 })
-                console.log(res)
             })
     };
     componentDidMount() {
@@ -54,7 +54,7 @@ export default class extends Component {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
             body: qs.stringify({
-                company_id: '1',
+                company_id: this.state.company_id,
             })
 
         }).then(res => res.json())
@@ -62,7 +62,6 @@ export default class extends Component {
                 this.setState({
                     num: res.list[0].num
                 })
-                console.log(res)
             })
         fetch("http://42.192.102.128:3000/company/recruitmentPost", {
             method: 'POST',
@@ -71,7 +70,7 @@ export default class extends Component {
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
             body: qs.stringify({
-                company_id: '1',
+                company_id: this.state.company_id,
                 page: '1',
                 num:3
             })
