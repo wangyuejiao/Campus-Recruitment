@@ -17,14 +17,32 @@ export default class extends Component {
             current: 1,
             message: {},
             advantage: [],
-            experience: []
+            experience: [],
+            status:0
         }
     }
-
+    filter = (ispass)=>{
+       fetch("http://42.192.102.128:3000/users/filterCandidate", {
+           method: 'POST',
+           headers: {
+               'Accept': "application/json,text/plain,*/*",
+               'Content-Type': 'application/x-www-form-urlencoded'
+           },
+           body: qs.stringify({
+               person_id: '1',
+               post_id:'1',
+               status:ispass
+           })
+   
+       }).then(res => res.json())
+           .then(res => {
+               console.log(res.list)
+           })
+       }
 
     componentDidMount() {
         //简历详情接口
-        fetch("http://42.192.102.128:3000/users/showPerson", {
+        fetch("http://42.192.102.128:3000/users/candidateInfo", {
             method: 'POST',
             headers: {
                 'Accept': "application/json,text/plain,*/*",
@@ -32,20 +50,24 @@ export default class extends Component {
             },
             body: qs.stringify({
                 person_id: '1',
+                post_id:"3"
             })
 
         }).then(res => res.json())
             .then(res => {
+                console.log(res)
                 this.setState({
                     message: res.list.message,
                     advantage: res.list.advantage,
-                    experience: res.list.experience[0]
+                    experience: res.list.experience[0],
                 })
                 // console.log(res.list)
             })
 
+    //点击通过不通过调用接
     }
     render() {
+        
         return (
             <div>
                 {/* 个人简介列表 */}
@@ -74,12 +96,20 @@ export default class extends Component {
                                                     <i className="iconfont" style={{ marginLeft: '30px', fontSize: '30px', marginTop: "-11px" }}>&#xe649;</i>{this.state.message.email}
                                                 </Row>
                                             </Col>
+                                            {!this.state.message.pass ? (
+                                                <>
                                             <Col>
-                                                <Button style={{ paddingTop: '0px', height: '40px', width: '100px', backgroundColor: '#e6d463', color: 'white', fontSize: '17px', borderRadius: '6px', textAlign: 'center', lineHeight: '40px', marginTop: '60%' }} >OUT</Button>
+                                                {/* <Link to={{pathname:'/companyhome/unpass'}}> */}
+                                                         <Button onClick={()=>this.filter(2)} style={{ paddingTop: '0px', height: '40px', width: '100px', backgroundColor: '#e6d463', color: 'white', fontSize: '17px', borderRadius: '6px', textAlign: 'center', lineHeight: '40px', marginTop: '60%' }} >OUT</Button>
+                                                {/* </Link> */}
                                             </Col>
                                             <Col style={{ marginLeft: '30px' }}>
-                                                <Button style={{ paddingTop: '0px', height: '40px', width: '100px', backgroundColor: '#19a8ad', color: 'white', fontSize: '17px', borderRadius: '6px', textAlign: 'center', lineHeight: '40px', marginTop: '60%' }} >PASS</Button>
+                                                {/* <Link to={{pathname:'/companyhome/pass'}}> */}
+                                                         <Button onClick={()=>this.filter(1)} style={{ paddingTop: '0px', height: '40px', width: '100px', backgroundColor: '#19a8ad', color: 'white', fontSize: '17px', borderRadius: '6px', textAlign: 'center', lineHeight: '40px', marginTop: '60%' }} >PASS</Button>
+                                                {/* </Link> */}
                                             </Col>
+                                            </>):null}
+                                            
                                         </Row>
                                     </Col>
                                 </Row>

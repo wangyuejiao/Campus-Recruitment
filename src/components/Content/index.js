@@ -17,63 +17,16 @@ export default class index extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            num: '',
             company: {},   //company对象
             environment: [],
             lable: [],
             current: 1,
             message: {},
-            advantage: [],
-            experience: []
         }
     }
 
-    onChange = page => {
-        console.log(page);
-        this.setState({
-            current: page,
-        });
-        fetch("http://42.192.102.128:3000/company/recruitmentPost", {
-            method: 'POST',
-            headers: {
-                'Accept': "application/json,text/plain,*/*",
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: qs.stringify({
-                company_id: '1',
-                page: page,
-                num: 3
-            })
-
-        }).then(res => res.json())
-            .then(res => {
-                this.setState({
-                    recruiting: res.list
-                })
-                console.log(res)
-            })
-    };
 
     componentDidMount() {
-        //   this.jump(this.state.page)
-        fetch("http://42.192.102.128:3000/company/recruitmentNum", {
-            method: 'POST',
-            headers: {
-                'Accept': "application/json,text/plain,*/*",
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: qs.stringify({
-                company_id: '1'
-            })
-
-        }).then(res => res.json())
-            .then(res => {
-                this.setState({
-                    num: res.list[0].num
-                })
-                console.log(res.list[0].num)
-            })
-
 
         //公司页面的logo
         fetch("http://42.192.102.128:3000/company/companyInfo", {
@@ -97,25 +50,26 @@ export default class index extends Component {
                 console.log(res.list.company);
             })
 
-        //简历盒子接口
-        fetch("http://42.192.102.128:3000/users/showPerson", {
+        //投递者信息接口
+        fetch("http://42.192.102.128:3000/users/candidateList", {
             method: 'POST',
             headers: {
                 'Accept': "application/json,text/plain,*/*",
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
             body: qs.stringify({
-                person_id: '1',
+                post_id: '1',
+                status:'0',
+                page:'1',
+                num:'1'
             })
 
         }).then(res => res.json())
             .then(res => {
                 this.setState({
-                    message: res.list.message,
-                    advantage: res.list.advantage,
-                    experience: res.list.experience[0]
+                    message: res.list[0],
                 })
-                // console.log(res.list)
+                console.log(res.list)
             })
 
     }
@@ -257,10 +211,7 @@ export default class index extends Component {
 
                                     </Row>
 
-                                    <Row>
-                                        <Pagination current={this.state.current} total={this.state.num} onChange={this.onChange} defaultPageSize={4}
-                                            style={{ marginTop: '4%', align: 'center', marginLeft: '37%' }} />
-                                    </Row>
+                                   
 
                                 </Col>
                             </Row>

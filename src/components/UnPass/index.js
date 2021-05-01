@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
-import { Col, Row } from "antd";
-import { Divider,Pagination } from "antd";
-import Recruiting from '../Recruiting'
+import { Col, Row, Divider, Pagination, Avatar,Button } from "antd";
+
 import {
     HashRouter as Router,
     Route,
@@ -10,8 +9,10 @@ import {
     withRouter,
 } from "react-router-dom";
 import qs from 'querystring'
+import ContentCom from '../ContentCom';
 
 
+const sex = 0
 export default class index extends Component {
     constructor(props) {
         super(props);
@@ -21,12 +22,9 @@ export default class index extends Component {
             environment: [],
             lable: [],
             current: 1,
-            recruiting: ['1', '2'],
-            num: 0,
-            financing: [],
-            scale: [],
-            industry_area: [],
-            citys: []
+            message: {},
+            advantage: [],
+            experience: []
         }
     }
 
@@ -99,66 +97,27 @@ export default class index extends Component {
                 console.log(res.list.company);
             })
 
-        //查看详情接口
-        fetch("http://42.192.102.128:3000/company/recruitmentNum", {
+        //简历盒子接口
+        fetch("http://42.192.102.128:3000/users/showPerson", {
             method: 'POST',
             headers: {
                 'Accept': "application/json,text/plain,*/*",
                 'Content-Type': 'application/x-www-form-urlencoded'
             },
             body: qs.stringify({
-                company_id: '1',
+                person_id: '1',
             })
 
         }).then(res => res.json())
             .then(res => {
                 this.setState({
-                    num: res.list[0].num
+                    message: res.list.message,
+                    advantage: res.list.advantage,
+                    experience: res.list.experience[0]
                 })
-                console.log(res)
-            })
-        fetch("http://42.192.102.128:3000/company/recruitmentPost", {
-            method: 'POST',
-            headers: {
-                'Accept': "application/json,text/plain,*/*",
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: qs.stringify({
-                company_id: '1',
-                page: '1',
-                num: 3
+                // console.log(res.list)
             })
 
-        }).then(res => res.json())
-            .then(res => {
-                this.setState({
-                    recruiting: res.list
-                })
-                console.log(res)
-            })
-
-
-        //数据库返回三个数组，所以为了使每个数组都可以显示，应该设置三个变量
-        fetch("http://42.192.102.128:3000/common/searchMenu")
-            .then(res => res.json())
-            .then(res => {
-                this.setState({
-                    industry_area: res.list.industry_area,
-                    scale: res.list.scale,
-                    financing: res.list.financing
-                })
-                console.log(res.list.industry_area, res.list.scale, res.list.financing)
-
-            })
-        //公司地点的接口
-        fetch("http://42.192.102.128:3000/common/cityAll")
-            .then(res => res.json())
-            .then(res => {
-                this.setState({
-                    citys: res.list
-                })
-                console.log(res.list)
-            })
     }
     render() {
         var num = { num: this.state.num }
@@ -166,144 +125,135 @@ export default class index extends Component {
         return (
             <div>
                 <Row >
-                   
-                        <Col span={24} >
-                            <Row style={{ backgroundColor: "#07ccbe" }}>
-                                <Col span={2}></Col>
-                                <Col span={3}>
-                                    <Row
-                                        // justify="start"
-                                        style={{
-                                            fontSize: "25px",
-                                            color: "white",
-                                            fontFamily: "lisu",
-                                            marginLeft: "10px",
-                                            paddingTop: '10px'
-                                        }}
-                                    >
-                                        {this.state.company.company_name}
-                                    </Row>
-                                    <Row justify="start" align="middle">
-                                        {
-                                            this.state.company.logo == '' ? (
-                                                <i className="iconfont" style={{ fontSize: '50px', marginTop: '7%', marginLeft: '5%', color: '#BBBBBB' }}>&#xe613;</i>
-                                            ) : (<img
-                                                width="70%"
-                                                style={{
-                                                    marginTop: "20px",
-                                                    borderRadius: "5px",
-                                                    marginLeft: "8px",
-                                                    marginBottom: '20%'
-                                                }}
-                                                height='90vh'
-                                                src={this.state.company.logo}
-                                            />)
-                                        }
-                                        {/* ()循环，判断是否添加图片，用三元组 */}
 
-                                    </Row>
-                                </Col>
-                                <Col span={7}>
-                                    <Row
-                                        style={{ marginTop: "17%", color: "white", fontSize: "16px" }}
-                                    >
-                                        {this.state.company.city}
-                                        <Divider
-                                            type="vertical"
-                                            style={{ marginTop: "1.5%", backgroundColor: "white" }}
-                                        />
-                                        {this.state.company.financing}
-                                        <Divider
-                                            type="vertical"
-                                            style={{ marginTop: "1.5%", backgroundColor: "white" }}
-                                        />
-                                        {this.state.company.scale_min}-{this.state.company.scale_max}人
+                    <Col span={24} >
+                        <Row style={{ backgroundColor: "#07ccbe" }}>
+                            <Col span={2}></Col>
+                            <Col span={3}>
+                                <Row
+                                    // justify="start"
+                                    style={{
+                                        fontSize: "25px",
+                                        color: "white",
+                                        fontFamily: "lisu",
+                                        marginLeft: "10px",
+                                        paddingTop: '10px'
+                                    }}
+                                >
+                                    {this.state.company.company_name}
+                                </Row>
+                                <Row justify="start" align="middle">
+                                    {
+                                        this.state.company.logo == '' ? (
+                                            <i className="iconfont" style={{ fontSize: '50px', marginTop: '7%', marginLeft: '5%', color: '#BBBBBB' }}>&#xe613;</i>
+                                        ) : (<img
+                                            width="70%"
+                                            style={{
+                                                marginTop: "20px",
+                                                borderRadius: "5px",
+                                                marginLeft: "8px",
+                                                marginBottom: '20%'
+                                            }}
+                                            height='90vh'
+                                            src={this.state.company.logo}
+                                        />)
+                                    }
+                                    {/* ()循环，判断是否添加图片，用三元组 */}
+
+                                </Row>
+                            </Col>
+                            <Col span={7}>
+                                <Row
+                                    style={{ marginTop: "17%", color: "white", fontSize: "16px" }}
+                                >
+                                    {this.state.company.city}
+                                    <Divider
+                                        type="vertical"
+                                        style={{ marginTop: "1.5%", backgroundColor: "white" }}
+                                    />
+                                    {this.state.company.financing}
+                                    <Divider
+                                        type="vertical"
+                                        style={{ marginTop: "1.5%", backgroundColor: "white" }}
+                                    />
+                                    {this.state.company.scale_min}-{this.state.company.scale_max}人
                   <Divider
-                                            type="vertical"
-                                            style={{ marginTop: "1.5%", backgroundColor: "white" }}
-                                        />
-                                        {this.state.company.industry_area}
-                                    </Row>
-                                    <Row
-                                        style={{ marginTop: "2%", color: "white", fontSize: "15px" }}
-                                    >
-                                        <i className="iconfont" style={{ color: "grey" }}>
-                                            &#xe606;
+                                        type="vertical"
+                                        style={{ marginTop: "1.5%", backgroundColor: "white" }}
+                                    />
+                                    {this.state.company.industry_area}
+                                </Row>
+                                <Row
+                                    style={{ marginTop: "2%", color: "white", fontSize: "15px" }}
+                                >
+                                    <i className="iconfont" style={{ color: "grey" }}>
+                                        &#xe606;
                   </i>
                   北京-北京-朝阳区-望京
                 </Row>
-                                    <Row
-                                        style={{ marginTop: "2%", color: "grey", fontSize: "14px" }}
-                                    >
-                                        朝来科技园创远路36号院10号楼3层
+                                <Row
+                                    style={{ marginTop: "2%", color: "grey", fontSize: "14px" }}
+                                >
+                                    朝来科技园创远路36号院10号楼3层
                 </Row>
-                                </Col>
-                                <Col span={5}></Col>
-                                <Col span={4}>
-                                    <Row
-                                        style={{ marginTop: "32%", color: "white", fontSize: "20px" }}
-                                        justify="center"
-                                    >
-                                        前端开发工程师
+                            </Col>
+                            <Col span={5}></Col>
+                            <Col span={4}>
+                                <Row
+                                    style={{ marginTop: "32%", color: "white", fontSize: "20px" }}
+                                    justify="center"
+                                >
+                                    前端开发工程师
                                     </Row>
-                                    <Row
-                                        style={{ marginTop: "3%", color: "#ea7873", fontSize: "17px", marginLeft: '40px' }}
-                                    >
-                                        20k-40k
+                                <Row
+                                    style={{ marginTop: "3%", color: "#ea7873", fontSize: "17px", marginLeft: '40px' }}
+                                >
+                                    20k-40k
                                     </Row>
-                                </Col>
-                            </Row>
-                        </Col>
-                   
+                            </Col>
+                        </Row>
+                    </Col>
+                </Row>
+ {/* 个人简介列表 */}
                     <Row>
                         <Col span={23}>
-
                             <Row>
                                 <Col span={2}></Col>
                                 <Col span={21}>
-
                                     <Row align='middle' justify='start'>
-                                        {this.state.recruiting.map((item, index) => (
-                                            // <Redirect to={{pathname:'/position',state:item}}>
-                                            <Link to={{ pathname: '/position/positions', search: '?code=' + item.post_id, }}>
-                                                <Col span={21} style={{ marginTop: '2%', border: '1px solid #BBBBBB' }} >
-                                                    <Row>
-                                                        <Col span={8} style={{ marginTop: '2%', marginLeft: '3%' }}>
-                                                            <Row style={{ color: '#3c9f8a', fontSize: '17px', fontWeight: 'bold' }}>
-                                                                <Col>{item.post_name}&nbsp;&nbsp;&nbsp;&nbsp;</Col>
-                                                                <Col>[{item.city}]</Col>
-                                                            </Row>
-                                                            <Row style={{ marginTop: '1%' }}>
-                                                                <p style={{ color: '#f4953f', fontSize: '17px' }}>{item.wages_min}k-{item.wages_max}k</p>
-
-                                                                <Divider type="vertical" style={{ marginTop: '2%', backgroundColor: '#BBBBBB', height: '17px' }} />
-                                                                <span style={{ color: '#BBBBBB', fontSize: '14px', marginTop: '1%' }}>{item.education}</span>
-                                                            </Row>
-                                                        </Col>
-                                                        <Col span={8}></Col>
-                                                        <Col span={4} style={{ marginTop: '2%', marginLeft: '2%' }}>
-                                                            <Row style={{ color: '#3c9f8a', fontSize: '17px', fontWeight: 'bold' }}>{item.company_name}</Row>
-                                                            <Row style={{ marginTop: '2%', fontSize: '14px', color: 'black' }}>{item.industry_area}&nbsp;/&nbsp;{item.financing}&nbsp;/&nbsp;{item.scale_min}-{item.scale_max}人</Row>
-                                                        </Col>
-                                                        <Col span={2}>
-                                                            <Row >
-                                                                <img
-                                                                    width='80%'
-                                                                    height='80%'
-                                                                    style={{ marginTop: '15%' }}
-                                                                    src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-                                                                />
-                                                            </Row>
-
-                                                        </Col>
-                                                    </Row>
-                                                    <Row align='middle' justify='center' style={{ backgroundColor: '#c4c0c0', padding: '1%', color: 'black' }}>{item.good}</Row>
+                                        <Col  span={21} style={{ marginTop: '2%', border: '1px solid #BBBBBB',backgroundColor:'#f5f7f7' }} >
+                                            <Row>
+                                                <Col span={3} style={{marginTop:'2%'}}>
+                                                    <Avatar style={{ border: '1px solid white' }} size={{ xl: 80 }} src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.bqatj.com%2Fimg%2F726697295441df40.jpg&refer=http%3A%2F%2Fimg.bqatj.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1621520175&t=88416367a31f56d0fd314d7c1526e804" />
                                                 </Col>
-                                            </Link>
+                                                <Col span={15} style={{ marginTop: '2%',marginLeft:'1%' }} >
+                                                    <Row style={{ fontWeight: 'bold', fontSize: '18px', marginBottom: '10px',fontFamily:'fantasy' }}>{this.state.message.username}
+                                                        {
+                                                            sex == 0 ? (
+                                                                <i className="iconfont" style={{ marginLeft: '5px', marginTop: '3px' }}>&#xe665;</i>
+                                                            ) : 1
+                                                        }
+                                                    </Row>
+                                                    <Row style={{ marginBottom: '10px' }}>{this.state.message.college}<Divider type='vertical' style={{ marginTop: '6px', backgroundColor: '#BBBBBB' }} />&nbsp;{this.state.message.education}.&nbsp;统招<Divider type='vertical' style={{ marginTop: '6px', backgroundColor: '#BBBBBB' }} />应届毕业生<Divider type='vertical' style={{ marginTop: '6px', backgroundColor: '#BBBBBB' }} />{this.state.message.age}岁</Row>
+                                                    <Row style={{marginBottom:'15px'}}>
+                                                        <i className="iconfont" style={{ fontSize: '20px', marginTop: "-3px" }}>&#xe634;</i>{this.state.message.phone}
+                                                        <i className="iconfont" style={{ marginLeft: '30px', fontSize: '30px', marginTop: "-11px" }}>&#xe649;</i>{this.state.message.email}
+                                                    </Row>
+                                                </Col>
+                                                <Col>
+                                                     <Link to={{pathname:'/companyhome/pass/ContentCom'}}>
+                                                         <Button style={{ paddingTop:'0px', height: '40px', width:'130px',backgroundColor: '#2582d6', color: 'white', fontFamily: 'lisu', fontSize: '25px', borderRadius: '6px', textAlign: 'center', lineHeight: '40px',marginTop:'35%' }} >查看详情</Button>
+                                                     </Link>
+                                                </Col>
+                                            </Row>
+                                           
 
-                                        ))
+                                        </Col>
+                                        {/* </Link> */}
 
-                                        }
+                                        {/* )) */}
+
+                                        {/* } */}
 
                                     </Row>
 
@@ -314,11 +264,8 @@ export default class index extends Component {
 
                                 </Col>
                             </Row>
-
                         </Col>
-
                     </Row>
-                </Row>
             </div>
         )
     }
