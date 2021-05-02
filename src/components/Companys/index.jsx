@@ -43,25 +43,6 @@ export default class index extends Component {
 
     componentDidMount(){
       this.jump(this.state.page)
-      fetch("http://42.192.102.128:3000/company/recruitmentNum",{
-        method: 'POST',
-        headers: {
-          'Accept':"application/json,text/plain,*/*",
-          'Content-Type': 'application/x-www-form-urlencoded'
-        },
-        body:qs.stringify({
-          company_id:'1'
-        })
-
-      }).then(res=>res.json())
-      .then(res=>{
-       this.setState({
-             num:res.list[0].num     
-       })
-      console.log(res.list[0].num)
-      })
-
-
    //公司页面的logo
     fetch("http://42.192.102.128:3000/company/companyInfo", {
       method: "POST",
@@ -80,7 +61,22 @@ export default class index extends Component {
           environment:res.list.environment,
           lable:res.list.lable
         });
-        console.log( res.list.company);
+        fetch("http://42.192.102.128:3000/company/recruitmentNum",{
+        method: 'POST',
+        headers: {
+          'Accept':"application/json,text/plain,*/*",
+          'Content-Type': 'application/x-www-form-urlencoded'
+        },
+        body:qs.stringify({
+          company_id:res.list.company[0].id
+        })
+
+      }).then(res=>res.json())
+      .then(res=>{
+       this.setState({
+             num:res.list[0].num     
+       })
+      })
       })
     }
 
@@ -227,7 +223,7 @@ export default class index extends Component {
                 <Row
                   style={{ marginTop: "3%", color: "white", fontSize: "15px" }}
                 >
-                  在职招位
+                  在招职位
                 </Row>
               </Col>
             </Row>

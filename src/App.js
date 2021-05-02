@@ -13,18 +13,13 @@ import User from './container/User'
 import Tianxie from './container/Tianxie';
 import TianxieCom from './container/TianxieCom';
 
-import { HashRouter as Router, Route, Link, Switch } from 'react-router-dom';
+import { HashRouter as Router, Route, Switch } from 'react-router-dom';
 
 import Companyhome from './container/Companyhome'
 
 function App() {
   return (
     <div className="App">
-      {/* <header className="App-header">
-        
-      </header> */}
-
-      {/* <Home /> */}
       <Router>
         <Switch>
           {/*  */}
@@ -34,17 +29,13 @@ function App() {
           {/* <Register /> */}
           <Route exact path='/' component={Home} />
           <Route  path='/Companyhome' component={Companyhome} />
-          <Route path='/position' component={Position} />
+          <Route exact path='/position' component={Position} />
           <Route path='/company' component={Company} />
           <Route path='/position/positions' component={Positions} />
           <Route path='/companyinfo' component={Companys} />
           <Route path='/city' component={City} />
           <Route path='/hobby' component={Hobby} />
           <Route path='/user' component={User} />
-          
-          {/* <Route exact path='/like' component={Like} />
-          <Route exact path='/toudi' component={Toudi} />
-          <Route exact path='/connect' component={Connect} /> */}
         </Switch>
       </Router>
     </div>
