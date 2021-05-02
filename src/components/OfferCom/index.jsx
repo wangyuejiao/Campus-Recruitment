@@ -12,7 +12,8 @@ export default class index extends Component {
       num: 9,
       page: 1,
       company_id: this.props.location.search.split("=")[1],
-      total:9
+      total:9,
+      status:0
     };
   }
   onChange = (page) => {
@@ -28,7 +29,7 @@ export default class index extends Component {
       },
       body: qs.stringify({
         company_id: this.state.company_id,
-        status: 0,
+        status: this.state.status,
         page: page,
         num: this.state.num,
       }),
@@ -50,7 +51,7 @@ export default class index extends Component {
       },
       body: qs.stringify({
         company_id: this.state.company_id,
-        status: 0,
+        status: this.state.status,
         page: this.state.page,
         num: this.state.num,
       }),
@@ -71,6 +72,7 @@ export default class index extends Component {
       },
       body: qs.stringify({
         company_id: this.state.company_id,
+        status:this.state.status
       }),
     })
       .then((res) => res.json())
@@ -106,13 +108,13 @@ export default class index extends Component {
                     该公司暂未收到简历投递
                   </p>
                 </div>
-              ) : (
+              ) : ( 
                 resume.map((item, index) => (
                   <Col span={7} style={{marginLeft:'3%'}}>
                     <Link
                       to={{
                         pathname: "/companyhome/offerCom/content",
-                        search: `?post=${item.post_id}&&company=${this.state.company_id}`,
+                        search: `?post=${item.post_id}&&company=${this.state.company_id}&&status=${this.state.status}`,
                       }}
                       display="none"
                     >

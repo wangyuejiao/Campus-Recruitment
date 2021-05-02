@@ -19,11 +19,13 @@ export default class extends Component {
       advantage: [],
       experience: [],
       status: 0,
-      person_id:this.props.location.search.split("&&")[1].split("=")[1],
-      post_id:this.props.location.search.split("&&")[0].split("=")[1]
+      person_id: this.props.location.search.split("&&")[1].split("=")[1],
+      post_id: this.props.location.search.split("&&")[0].split("=")[1],
     };
   }
   filter = (ispass) => {
+    const newMessage = this.state.message;
+    newMessage.pass = ispass;
     fetch("http://42.192.102.128:3000/users/filterCandidate", {
       method: "POST",
       headers: {
@@ -38,7 +40,9 @@ export default class extends Component {
     })
       .then((res) => res.json())
       .then((res) => {
-        console.log(res.list);
+        this.setState({
+          message: newMessage,
+        });
       });
   };
 
@@ -166,10 +170,9 @@ export default class extends Component {
                           {this.state.message.email}
                         </Row>
                       </Col>
-                      {this.state.message.pass ? (
+                      {this.state.message.pass == 0 ? (
                         <>
                           <Col>
-                            {/* <Link to={{pathname:'/companyhome/unpass'}}> */}
                             <Button
                               onClick={() => this.filter(2)}
                               style={{
@@ -187,10 +190,8 @@ export default class extends Component {
                             >
                               OUT
                             </Button>
-                            {/* </Link> */}
                           </Col>
                           <Col style={{ marginLeft: "30px" }}>
-                            {/* <Link to={{pathname:'/companyhome/pass'}}> */}
                             <Button
                               onClick={() => this.filter(1)}
                               style={{
@@ -208,10 +209,29 @@ export default class extends Component {
                             >
                               PASS
                             </Button>
-                            {/* </Link> */}
                           </Col>
                         </>
-                      ) : null}
+                      ) : this.state.message.pass == 2 ? (
+                        <Col style={{ paddingTop: "4%" }}>
+                          <Row justify="center" align="middle">
+                            <i
+                              style={{ fontWeight: "bold", fontSize: "60px" }}
+                              className="iconfont icon-unpass"
+                            />
+                            <span style={{}}>不通过</span>
+                          </Row>
+                        </Col>
+                      ) : (
+                        <Col style={{ paddingTop: "4%" }}>
+                          <Row justify="center" align="middle">
+                            <i
+                              style={{ fontWeight: "bold", fontSize: "60px" }}
+                              className="iconfont icon-pass"
+                            />
+                            <span style={{}}>以通过</span>
+                          </Row>
+                        </Col>
+                      )}
                     </Row>
                   </Col>
                 </Row>

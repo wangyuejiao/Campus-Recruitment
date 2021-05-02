@@ -31,8 +31,8 @@ export default class index extends Component {
                <li style={navigation2}><Link to={{pathname:'/companyhome/RecruitingCom',search: '?company=' + this.props.company.id}}>在招岗位</Link></li>
                <li style={navigation2}><Link to={{pathname:'/companyhome/OfferCom',search: '?company=' + this.props.company.id}}>简历盒子</Link></li>
                <li style={navigation2}><Link to='/companyhome/FabuCom'>发布招聘</Link></li>
-               <li style={navigation2}><Link to='/companyhome/Unpass'>未通过</Link></li>
-               <li style={navigation2}><Link to='/companyhome/Pass'>通过</Link></li>
+               <li style={navigation2}><Link to={{pathname:'/companyhome/Unpass',search: '?company=' + this.props.company.id}}>未通过</Link></li>
+               <li style={navigation2}><Link to={{pathname:'/companyhome/pass',search: '?company=' + this.props.company.id}}>通过</Link></li>
            </ul>
       </Col>
    </Row>

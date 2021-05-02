@@ -1,272 +1,239 @@
-import React, { Component } from 'react'
-import { Col, Row, Divider, Pagination, Avatar,Button } from "antd";
+import React, { Component } from "react";
+import { Row, Col, Divider, Image, Button, Popover, Pagination } from "antd";
+import { Link } from "react-router-dom";
+import qs from "querystring";
+import CompanyNav from "../../components/CompanyNav";
 
-import {
-    HashRouter as Router,
-    Route,
-    Switch,
-    Link,
-    withRouter,
-} from "react-router-dom";
-import qs from 'querystring'
-import ContentCom from '../ContentCom';
-
-
-const sex = 0
 export default class index extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            num: '',
-            company: {},   //company对象
-            environment: [],
-            lable: [],
-            current: 1,
-            message: {},
-            advantage: [],
-            experience: []
-        }
-    }
-
-    onChange = page => {
-        console.log(page);
-        this.setState({
-            current: page,
-        });
-        fetch("http://42.192.102.128:3000/company/recruitmentPost", {
-            method: 'POST',
-            headers: {
-                'Accept': "application/json,text/plain,*/*",
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: qs.stringify({
-                company_id: '1',
-                page: page,
-                num: 3
-            })
-
-        }).then(res => res.json())
-            .then(res => {
-                this.setState({
-                    recruiting: res.list
-                })
-                console.log(res)
-            })
+  constructor(props) {
+    super(props);
+    this.state = {
+      resume: [],
+      num: 9,
+      page: 1,
+      company_id: this.props.location.search.split("=")[1],
+      total:9,
+      status:1
     };
+  }
+  onChange = (page) => {
+    this.setState({
+      page: page,
+    });
 
-    componentDidMount() {
-        //   this.jump(this.state.page)
-        fetch("http://42.192.102.128:3000/company/recruitmentNum", {
-            method: 'POST',
-            headers: {
-                'Accept': "application/json,text/plain,*/*",
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: qs.stringify({
-                company_id: '1'
-            })
+    fetch("http://42.192.102.128:3000/users/resumeBox", {
+      method: "POST",
+      headers: {
+        Accept: "application/json,text/plain,*/*",
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: qs.stringify({
+        company_id: this.state.company_id,
+        status: this.state.status,
+        page: page,
+        num: this.state.num,
+      }),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        this.setState({
+          resume: res.list,
+        });
+      });
+  };
 
-        }).then(res => res.json())
-            .then(res => {
-                this.setState({
-                    num: res.list[0].num
-                })
-                console.log(res.list[0].num)
-            })
+  componentDidMount() {
+    fetch("http://42.192.102.128:3000/users/resumeBox", {
+      method: "POST",
+      headers: {
+        Accept: "application/json,text/plain,*/*",
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: qs.stringify({
+        company_id: this.state.company_id,
+        status: this.state.status,
+        page: this.state.page,
+        num: this.state.num,
+      }),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        this.setState({
+          resume: res.list,
+        });
+      });
 
-
-        //公司页面的logo
-        fetch("http://42.192.102.128:3000/company/companyInfo", {
-            method: "POST",
-            headers: {
-                Accept: "application/json,text/plain,*/*",
-                "Content-Type": "application/x-www-form-urlencoded",
-            },
-            body: qs.stringify({
-                // company_id: this.props.location.search.split('=')[1],
-                company_id: 1
-            }),
+      fetch("http://42.192.102.128:3000/users/resumeBoxNum", {
+      method: "POST",
+      headers: {
+        Accept: "application/json,text/plain,*/*",
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: qs.stringify({
+        company_id: this.state.company_id,
+        status:this.state.status
+      }),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        this.setState({
+            total:res.list[0].count
         })
-            .then((res) => res.json())
-            .then((res) => {
-                this.setState({
-                    company: res.list.company[0],
-                    environment: res.list.environment,
-                    lable: res.list.lable
-                });
-                console.log(res.list.company);
-            })
+      });
+  }
 
-        //简历盒子接口
-        fetch("http://42.192.102.128:3000/users/showPerson", {
-            method: 'POST',
-            headers: {
-                'Accept': "application/json,text/plain,*/*",
-                'Content-Type': 'application/x-www-form-urlencoded'
-            },
-            body: qs.stringify({
-                person_id: '1',
-            })
-
-        }).then(res => res.json())
-            .then(res => {
-                this.setState({
-                    message: res.list.message,
-                    advantage: res.list.advantage,
-                    experience: res.list.experience[0]
-                })
-                // console.log(res.list)
-            })
-
-    }
-    render() {
-        var num = { num: this.state.num }
-        console.log(this.state.company)
-        return (
-            <div>
-                <Row >
-
-                    <Col span={24} >
-                        <Row style={{ backgroundColor: "#07ccbe" }}>
-                            <Col span={2}></Col>
-                            <Col span={3}>
-                                <Row
-                                    // justify="start"
-                                    style={{
-                                        fontSize: "25px",
-                                        color: "white",
-                                        fontFamily: "lisu",
-                                        marginLeft: "10px",
-                                        paddingTop: '10px'
-                                    }}
-                                >
-                                    {this.state.company.company_name}
-                                </Row>
-                                <Row justify="start" align="middle">
-                                    {
-                                        this.state.company.logo == '' ? (
-                                            <i className="iconfont" style={{ fontSize: '50px', marginTop: '7%', marginLeft: '5%', color: '#BBBBBB' }}>&#xe613;</i>
-                                        ) : (<img
-                                            width="70%"
-                                            style={{
-                                                marginTop: "20px",
-                                                borderRadius: "5px",
-                                                marginLeft: "8px",
-                                                marginBottom: '20%'
-                                            }}
-                                            height='90vh'
-                                            src={this.state.company.logo}
-                                        />)
-                                    }
-                                    {/* ()循环，判断是否添加图片，用三元组 */}
-
-                                </Row>
-                            </Col>
-                            <Col span={7}>
-                                <Row
-                                    style={{ marginTop: "17%", color: "white", fontSize: "16px" }}
-                                >
-                                    {this.state.company.city}
-                                    <Divider
-                                        type="vertical"
-                                        style={{ marginTop: "1.5%", backgroundColor: "white" }}
-                                    />
-                                    {this.state.company.financing}
-                                    <Divider
-                                        type="vertical"
-                                        style={{ marginTop: "1.5%", backgroundColor: "white" }}
-                                    />
-                                    {this.state.company.scale_min}-{this.state.company.scale_max}人
-                  <Divider
-                                        type="vertical"
-                                        style={{ marginTop: "1.5%", backgroundColor: "white" }}
-                                    />
-                                    {this.state.company.industry_area}
-                                </Row>
-                                <Row
-                                    style={{ marginTop: "2%", color: "white", fontSize: "15px" }}
-                                >
-                                    <i className="iconfont" style={{ color: "grey" }}>
-                                        &#xe606;
+  render() {
+    const { resume } = this.state;
+    return (
+      <div>
+        <CompanyNav />
+        <Row style={{ paddingTop: "2%" }} justify="center" align="middle">
+          <Col span={1}></Col>
+          <Col span={20}>
+            <Row justify="start" align="middle">
+              {/* 判断公司是否发布了招聘信息  */}
+              {resume.length == 0 ? (
+                <div
+                  style={{ width: "400px", height: "150px", marginTop: "80px" }}
+                >
+                  <i
+                    className="iconfont"
+                    style={{ fontSize: "80px", color: "#BBBBBB" }}
+                  >
+                    &#xe891;
                   </i>
-                  北京-北京-朝阳区-望京
-                </Row>
-                                <Row
-                                    style={{ marginTop: "2%", color: "grey", fontSize: "14px" }}
-                                >
-                                    朝来科技园创远路36号院10号楼3层
-                </Row>
-                            </Col>
-                            <Col span={5}></Col>
-                            <Col span={4}>
-                                <Row
-                                    style={{ marginTop: "32%", color: "white", fontSize: "20px" }}
-                                    justify="center"
-                                >
-                                    前端开发工程师
-                                    </Row>
-                                <Row
-                                    style={{ marginTop: "3%", color: "#ea7873", fontSize: "17px", marginLeft: '40px' }}
-                                >
-                                    20k-40k
-                                    </Row>
-                            </Col>
-                        </Row>
-                    </Col>
-                </Row>
- {/* 个人简介列表 */}
-                    <Row>
-                        <Col span={23}>
-                            <Row>
-                                <Col span={2}></Col>
-                                <Col span={21}>
-                                    <Row align='middle' justify='start'>
-                                        <Col  span={21} style={{ marginTop: '2%', border: '1px solid #BBBBBB',backgroundColor:'#f5f7f7' }} >
-                                            <Row>
-                                                <Col span={3} style={{marginTop:'2%'}}>
-                                                    <Avatar style={{ border: '1px solid white' }} size={{ xl: 80 }} src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.bqatj.com%2Fimg%2F726697295441df40.jpg&refer=http%3A%2F%2Fimg.bqatj.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1621520175&t=88416367a31f56d0fd314d7c1526e804" />
-                                                </Col>
-                                                <Col span={15} style={{ marginTop: '2%',marginLeft:'1%' }} >
-                                                    <Row style={{ fontWeight: 'bold', fontSize: '18px', marginBottom: '10px',fontFamily:'fantasy' }}>{this.state.message.username}
-                                                        {
-                                                            sex == 0 ? (
-                                                                <i className="iconfont" style={{ marginLeft: '5px', marginTop: '3px' }}>&#xe665;</i>
-                                                            ) : 1
-                                                        }
-                                                    </Row>
-                                                    <Row style={{ marginBottom: '10px' }}>{this.state.message.college}<Divider type='vertical' style={{ marginTop: '6px', backgroundColor: '#BBBBBB' }} />&nbsp;{this.state.message.education}.&nbsp;统招<Divider type='vertical' style={{ marginTop: '6px', backgroundColor: '#BBBBBB' }} />应届毕业生<Divider type='vertical' style={{ marginTop: '6px', backgroundColor: '#BBBBBB' }} />{this.state.message.age}岁</Row>
-                                                    <Row style={{marginBottom:'15px'}}>
-                                                        <i className="iconfont" style={{ fontSize: '20px', marginTop: "-3px" }}>&#xe634;</i>{this.state.message.phone}
-                                                        <i className="iconfont" style={{ marginLeft: '30px', fontSize: '30px', marginTop: "-11px" }}>&#xe649;</i>{this.state.message.email}
-                                                    </Row>
-                                                </Col>
-                                                <Col>
-                                                     <Link to={{pathname:'/companyhome/pass/ContentCom'}}>
-                                                         <Button style={{ paddingTop:'0px', height: '40px', width:'130px',backgroundColor: '#2582d6', color: 'white', fontFamily: 'lisu', fontSize: '25px', borderRadius: '6px', textAlign: 'center', lineHeight: '40px',marginTop:'35%' }} >查看详情</Button>
-                                                     </Link>
-                                                </Col>
-                                            </Row>
-                                           
-
-                                        </Col>
-                                        {/* </Link> */}
-
-                                        {/* )) */}
-
-                                        {/* } */}
-
-                                    </Row>
-
-                                    <Row>
-                                        <Pagination current={this.state.current} total={this.state.num} onChange={this.onChange} defaultPageSize={4}
-                                            style={{ marginTop: '4%', align: 'center', marginLeft: '37%' }} />
-                                    </Row>
-
-                                </Col>
+                  <p style={{ fontSize: "15px", color: "#BBBBBB" }}>
+                    {" "}
+                    该公司暂未收到简历投递
+                  </p>
+                </div>
+              ) : ( 
+                resume.map((item, index) => (
+                  <Col span={7} style={{marginLeft:'3%'}}>
+                    <Link
+                      to={{
+                        pathname: "/companyhome/offerCom/content",
+                        search: `?post=${item.post_id}&&company=${this.state.company_id}&&status=${this.state.status}`,
+                      }}
+                      display="none"
+                    >
+                      <Col
+                        span={24}
+                        style={{
+                          marginBottom: "7%",
+                          backgroundColor: "#79bcdc",
+                          padding: "5%",
+                          border: "1px solid #BBBBBB",
+                          borderRadius: "10px",
+                        }}
+                      >
+                        <Row>
+                          <Col span={18}>
+                            <Row
+                              justify="space-between"
+                              align="middle"
+                              style={{
+                                fontWeight: "bold",
+                                fontSize: "16px",
+                                color: "black",
+                              }}
+                            >
+                              {item.post_name}
                             </Row>
-                        </Col>
-                    </Row>
-            </div>
-        )
-    }
+                            <Row
+                              justify="start"
+                              align="middle"
+                              style={{
+                                paddingTop: "15px",
+                                fontSize: "13px",
+                                color: "grey",
+                              }}
+                            >
+                              <Col>{item.city}</Col>
+                              <Divider
+                                type="vertical"
+                                style={{ backgroundColor: "#BBBBBB" }}
+                              />
+                              <Col>{item.financing}</Col>
+                              <Divider
+                                type="vertical"
+                                style={{ backgroundColor: "#BBBBBB" }}
+                              />
+                              <Col>{item.industry_area}</Col>
+                              <Divider
+                                type="vertical"
+                                style={{ backgroundColor: "#BBBBBB" }}
+                              />
+                              <Col>{item.education}</Col>
+                            </Row>
+                            <Row
+                              justify="space-between"
+                              align="middle"
+                              style={{
+                                fontSize: "16px",
+                                color: "#e54d42",
+                                paddingTop: "5px",
+                              }}
+                            >
+                              {item.wages_min}k-{item.wages_max}k
+                            </Row>
+                          </Col>
+                          <Col span={4} style={{ marginLeft: "10px" }}>
+                            <i
+                              className="iconfont"
+                              style={{
+                                color: "#19a8ad",
+                                fontSize: "45px",
+                                marginRight: "45px",
+                              }}
+                            >
+                              &#xea0b;
+                            </i>
+                          </Col>
+                          <Col span={1}>
+                            <Row
+                              justify="center"
+                              align="middle"
+                              style={{
+                                width: "22px",
+                                height: "18px",
+                                backgroundColor: "#e54d42",
+                                borderRadius: "10px",
+                                color: "white",
+                                border: "1px solid white",
+                              }}
+                            >
+                              {item.candidateNum}
+                            </Row>
+                          </Col>
+                        </Row>
+                      </Col>
+                    </Link>
+                  </Col>
+                ))
+              )}
+            </Row>
+            {resume.length == 0 ? (
+              <div></div>
+            ) : (
+              <Row>
+                <Pagination
+                  current={this.state.page}
+                  total={this.state.total}
+                  defaultPageSize={this.state.num}
+                  onChange={this.onChange}
+                  style={{
+                    marginTop: "4%",
+                    align: "center",
+                    marginLeft: "37%",
+                  }}
+                />
+              </Row>
+            )}
+          </Col>
+          <Col span={2}></Col>
+        </Row>
+      </div>
+    );
+  }
 }

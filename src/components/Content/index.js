@@ -24,6 +24,7 @@ export default class index extends Component {
       candidateList: [],
       company_id: this.props.location.search.split("&&")[1].split("=")[1],
       post_id: this.props.location.search.split("&&")[0].split("=")[1],
+      status:this.props.location.search.split("&&")[2].split("=")[1]
     };
   }
 
@@ -59,7 +60,7 @@ export default class index extends Component {
       },
       body: qs.stringify({
         post_id: post_id,
-        status: "0",
+        status: this.state.status,
         page: "1",
         num: "2",
       }),
