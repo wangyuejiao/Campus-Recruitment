@@ -215,20 +215,20 @@ export default class extends Component {
                         <Col style={{ paddingTop: "4%" }}>
                           <Row justify="center" align="middle">
                             <i
-                              style={{ fontWeight: "bold", fontSize: "60px" }}
+                              style={{ fontWeight: "bold", fontSize: "60px",color:'#e6d463' }}
                               className="iconfont icon-unpass"
                             />
-                            <span style={{}}>不通过</span>
+                            <span style={{fontSize:'15px',color:'#e6d463' }}>不通过</span>
                           </Row>
                         </Col>
                       ) : (
                         <Col style={{ paddingTop: "4%" }}>
                           <Row justify="center" align="middle">
                             <i
-                              style={{ fontWeight: "bold", fontSize: "60px" }}
+                              style={{ fontWeight: "bold", fontSize: "60px",color:'#19a8ad' }}
                               className="iconfont icon-pass"
                             />
-                            <span style={{}}>以通过</span>
+                            <span style={{fontSize:'15px',color:'#19a8ad'}}>已通过</span>
                           </Row>
                         </Col>
                       )}

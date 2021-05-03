@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Col, Row, Divider, Pagination } from "antd";
+import { Col, Row, Divider, Pagination, Empty  } from "antd";
 import qs from "querystring";
 import { Link } from "react-router-dom";
 
@@ -165,14 +165,25 @@ export default class index extends Component {
             </Col>
           </Link>
         ))}
+       
 
-        <Pagination
-          current={this.state.current}
-          total={this.state.num}
-          onChange={this.onChange}
-          defaultPageSize={8}
-          style={{ marginTop: "4%", align: "center", marginLeft: "37%" }}
-        />
+       {recruiting.length == 0 ? (
+              <Row  align="middle" justify="center"style={{marginLeft:"40%",marginTop:'10%'}}><Empty /></Row>
+            ) : (
+              <Row>
+                <Pagination
+                  current={this.state.page}
+                  total={this.state.total}
+                  defaultPageSize={this.state.num}
+                  onChange={this.onChange}
+                  style={{
+                    marginTop: "4%",
+                    align: "center",
+                    marginLeft: "37%",
+                  }}
+                />
+              </Row>
+            )}
       </Row>
     );
   }

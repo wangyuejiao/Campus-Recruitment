@@ -30,12 +30,28 @@ export default class index extends Component {
                            <Row style={{fontFamily:'cursive',fontSize:'20px',fontWeight:'bold'}}>发布岗位</Row>
                             <Divider type='horizontal' style={{backgroundColor:'#bbbbbb',height:'2px',marginTop:'10px'}}></Divider>
                             <Row align='middle'>
-                                <Col>岗位名称：</Col>
-                                <Col><Input placeholder="请输入内容" style={{fontSize:'15px'}}/></Col>
+                                <Col>公司名称：</Col>
+                                <Col><Input placeholder="请输入内容" style={{fontSize:'15px',width:'150px'}}/></Col>
+                                <Col style={{marginLeft:'30px'}}>岗位名称：</Col>
+                                <Col><Input style={{fontSize:'15px',width:'150px'}}/></Col>
+                                <Col style={{marginLeft:'30px'}}>地址：</Col>
+                                <Col><Input  style={{fontSize:'15px',width:'150px'}}/></Col>
+                            </Row>
+                            <Row align='middle' style={{marginTop:'20px'}}>
+                                <Col>学历：</Col>
+                                <Col style={{marginLeft:'30px'}}><Input placeholder="请输入内容" style={{fontSize:'15px',width:'150px'}}/></Col>
+                                <Col style={{marginLeft:'30px'}}>行业领域：</Col>
+                                <Col><Input  style={{fontSize:'15px',width:'150px'}}/></Col>
+                                <Col style={{marginLeft:'30px'}}>规模：</Col>
+                                <Col><Input  style={{fontSize:'15px',width:'150px'}}/></Col>
+                            </Row>
+                            <Row align='middle' style={{marginTop:'20px'}}>
+                                <Col>融资阶段</Col>
+                                <Col style={{marginLeft:'20px'}}><Input placeholder="请输入内容" style={{fontSize:'15px'}}/></Col>
                             </Row>
                             <Row align='middle' style={{marginTop:'20px'}}>
                                 <Col>薪资：</Col>
-                                <Col span={4} style={{marginLeft:'30px'}}><Slider range min={200} max={400} /></Col>
+                                <Col span={4} style={{marginLeft:'30px'}}><Slider range min={20} max={40} /></Col>
                             </Row>
                             <Row align='middle' style={{marginTop:'20px'}}>
                                 <Col>职位诱惑：</Col>
@@ -46,8 +62,8 @@ export default class index extends Component {
                                 <Col span={15} > <TextArea placeholder="请输入内容" allowClear onChange={onChange}  /></Col>
                             </Row>
                             <Row align='middle' style={{marginTop:'20px'}}>
-                                <Col>地址：</Col>
-                                <Col style={{marginLeft:'30px'}}><Input placeholder="请输入内容" style={{fontSize:'15px'}}/></Col>
+                                <Col>工作地址</Col>
+                                <Col style={{marginLeft:'15px'}}><Input placeholder="请输入内容" style={{fontSize:'15px'}}/></Col>
                             </Row>
                             <Row align='middle' justify='center' style={{marginTop:'50px'}}>
                                 <i className="iconfont" style={{fontSize:'45px'}}>&#xea0b;</i>

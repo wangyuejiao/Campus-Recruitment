@@ -237,8 +237,8 @@ export default class index extends Component {
                           >
                             <img
                               width="15%"
-                              style={{ marginBottom: "5px" }}
-                              src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                              style={{ marginBottom: "0px" }}
+                              src={item.logo}
                             />
                             <Col style={{ marginLeft: "5px" }}>
                               {item.company_name}

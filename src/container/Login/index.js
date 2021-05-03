@@ -112,9 +112,35 @@ export default class index extends Component {
                     <Header
                       style={{ backgroundColor: "white", height: "10%" }}
                     ></Header>
+                     <Row style={{  backgroundColor: "white" }}>
+                                        <Col span={4}></Col>
+                                        <Col span={7}>
+                                            <Button
+
+                                                htmlType="submit"
+                                                block="true"
+                                                style={{ borderRadius: '5px' }}
+                                            >
+                                                我要招聘
+                                           </Button>
+                                        </Col>
+                                        <Col span={3}></Col>
+                                        <Col span={7}>
+                                            <Button
+
+                                                htmlType="submit"
+                                                block="true"
+                                                style={{ borderRadius: '5px' }}
+                                            >
+                                                我要找工作
+                                          </Button>
+                                     </Col>
+                      </Row>
+                     
                     <Content
-                      style={{ padding: "15%", backgroundColor: "white" }}
+                      style={{ padding: "8%", backgroundColor: "white" }}
                     >
+                      
                       <Row>
                         <Form
                           {...layout}
