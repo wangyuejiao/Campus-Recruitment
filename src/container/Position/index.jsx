@@ -25,14 +25,13 @@ export default class extends Component {
     this.setState({
       current: page,
     });
-    fetch("http://42.192.102.128:3000/company/recruitmentPost", {
+    fetch("http://42.192.102.128:3000/company/postAll", {
       method: "POST",
       headers: {
         Accept: "application/json,text/plain,*/*",
         "Content-Type": "application/x-www-form-urlencoded",
       },
       body: qs.stringify({
-        company_id: "1",
         page: page,
       }),
     })
@@ -45,31 +44,20 @@ export default class extends Component {
       });
   };
   componentDidMount() {
-    fetch("http://42.192.102.128:3000/company/recruitmentNum", {
+    fetch("http://42.192.102.128:3000/company/postNumAll")
+        .then(res => res.json())
+        .then(res => {
+          this.setState({
+            num: res.list[0].num,
+          });
+        })
+    fetch("http://42.192.102.128:3000/company/postAll", {
       method: "POST",
       headers: {
         Accept: "application/json,text/plain,*/*",
         "Content-Type": "application/x-www-form-urlencoded",
       },
       body: qs.stringify({
-        company_id: "1",
-      }),
-    })
-      .then((res) => res.json())
-      .then((res) => {
-        this.setState({
-          num: res.list[0].num,
-        });
-        console.log(res);
-      });
-    fetch("http://42.192.102.128:3000/company/recruitmentPost", {
-      method: "POST",
-      headers: {
-        Accept: "application/json,text/plain,*/*",
-        "Content-Type": "application/x-www-form-urlencoded",
-      },
-      body: qs.stringify({
-        company_id: "1",
         page: "1",
       }),
     })
@@ -251,10 +239,10 @@ export default class extends Component {
                           <Col span={2}>
                             <Row>
                               <img
-                                width="80%"
-                                height="80%"
+                                width="100%"
+                                height="100%"
                                 style={{ marginTop: "15%" }}
-                                src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                                src={item.logo}
                               />
                             </Row>
                           </Col>
