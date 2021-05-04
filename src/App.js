@@ -23,7 +23,6 @@ function App() {
       <Router>
         <Switch>
           {/*  */}
-          <Login path='/login'/>
           <Tianxie path='/tianxie'/>
           <TianxieCom path='/tianxieCom'/>
           {/* <Register /> */}
@@ -36,6 +35,9 @@ function App() {
           <Route path='/city' component={City} />
           <Route path='/hobby' component={Hobby} />
           <Route path='/user' component={User} />
+          <Route path='/login' component={Login} />
+          <Route path='/registered' component={Register} />
+          <Route path='/tianxie' component={Tianxie} />
         </Switch>
       </Router>
     </div>

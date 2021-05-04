@@ -108,7 +108,6 @@ export default class index extends Component {
                     <p style={{ color: "#f4953f", fontSize: "17px" }}>
                       {item.wages_min}k-{item.wages_max}k
                     </p>
-
                     <Divider
                       type="vertical"
                       style={{
@@ -147,8 +146,8 @@ export default class index extends Component {
                 <Col span={2}>
                   <Row>
                     <img
-                      width="80%"
-                      height="80%"
+                      width="100%"
+                      height="100%"
                       style={{ marginTop: "15%" }}
                       src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
                     />

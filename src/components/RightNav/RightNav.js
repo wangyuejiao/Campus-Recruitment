@@ -194,7 +194,7 @@ export default function RightNav(props) {
                           <img
                             width="15%"
                             style={{ marginBottom: "5px" }}
-                            src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                            src={item.logo}
                           />
                           <Col style={{ marginLeft: "5px" }}>{item.company_name}</Col>
 

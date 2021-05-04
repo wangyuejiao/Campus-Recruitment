@@ -23,13 +23,11 @@ export default class index extends Component {
       citys: [],
       position: [],
       divide: [], //职业分类
-      person_id: 1,
+      person_id: localStorage.getItem('person_id'),
     };
   }
 
   componentDidMount() {
-    localStorage.setItem('person_id','1')
-    console.log('localStorage',localStorage)
     fetch("http://42.192.102.128:3000/common/positionDivide")
       .then((res) => res.json())
       .then((res) => {

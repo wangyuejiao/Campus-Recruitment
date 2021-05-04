@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import TopNav from "../../components/topNav";
 import RightNav from "../../components/RightNav/RightNav.js";
-import { Row, Col, Divider, Image, Button, Icon, Pagination } from "antd";
+import { Row, Col, Divider, Image, Button, Empty , Pagination } from "antd";
 import Search from "../../components/Search/Search";
 import Recruiting from "../../components/Recruiting";
 import { Link } from "react-router-dom";
@@ -18,6 +18,7 @@ export default class extends Component {
       scale: [],
       industry_area: [],
       citys: [],
+      showfenye:true
     };
   }
   onChange = (page) => {
@@ -43,6 +44,30 @@ export default class extends Component {
         console.log(res);
       });
   };
+  onfilter=(type,id)=>{
+
+    fetch("http://42.192.102.128:3000/common/filterPost", {
+      method: "POST",
+      headers: {
+        Accept: "application/json,text/plain,*/*",
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: qs.stringify({
+        type:type,
+        id:id,
+        page:1
+      }),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        const a= res.list.filter((item)=>item.post_id)
+        this.setState({
+          recruiting:a,
+          showfenye:false
+        })
+      });
+
+  }
   componentDidMount() {
     fetch("http://42.192.102.128:3000/company/postNumAll")
         .then(res => res.json())
@@ -78,7 +103,7 @@ export default class extends Component {
           scale: res.list.scale,
           financing: res.list.financing,
         });
-        console.log(res.list.industry_area, res.list.scale, res.list.financing);
+        console.log("searchMenu",res.list.industry_area, res.list.scale, res.list.financing);
       });
     //公司地点的接口
     fetch("http://42.192.102.128:3000/common/cityAll")
@@ -118,13 +143,15 @@ export default class extends Component {
                 border: "1px solid #BBBBBB",
               }}
             >
-              <Col span={2} style={{ marginLeft: "1%" }}></Col>
+              <Col span={4} style={{ marginLeft: "3%" }}></Col>
               <Col>
                 <Row style={{ marginTop: "7%" }}>
                   公司地点：
                   {this.state.citys.map((item, index) =>
                     index < 15 ? (
-                      <Col style={{ marginRight: "10px" }}>{item.city}</Col>
+                      <Col style={{ marginRight: "10px" }}><Button type="link" style={{padding:'0px',height:'0px'}} onClick={()=>this.onfilter("city_id",item.id)}>
+                      {item.city}
+                      </Button></Col>
                     ) : (
                       <Col></Col>
                     ) //设置所能显示的最大数量，用三元组
@@ -133,14 +160,20 @@ export default class extends Component {
                 <Row style={{ marginTop: "7%" }}>
                   融资阶段：
                   {this.state.financing.map((item, index) => (
-                    <Col style={{ marginRight: "10px" }}>{item.financing}</Col>
+                    <Col style={{ marginRight: "10px" }}>
+                       <Button type="link" style={{padding:'0px',height:'0px'}} onClick={()=>this.onfilter("financing_id",item.id)}>
+                       {item.financing}
+                      </Button>
+                  </Col>
                   ))}
                 </Row>
                 <Row style={{ marginTop: "7%" }}>
                   公司规模：
                   {this.state.scale.map((item, index) => (
                     <Col style={{ marginRight: "10px" }}>
-                      {item.scale_min}-{item.scale_max}人
+                      <Button type="link" style={{padding:'0px',height:'0px'}} onClick={()=>this.onfilter("scale_id",item.id)}>
+                      {item.scale_min}人-{item.scale_max}人
+                      </Button>
                     </Col>
                   ))}
                 </Row>
@@ -148,16 +181,17 @@ export default class extends Component {
                   行业领域：
                   {this.state.industry_area.map((item, index) => (
                     <Col style={{ marginRight: "10px" }}>
+                      <Button type="link" style={{padding:'0px',height:'0px'}} onClick={()=>this.onfilter("industry_area_id",item.id)}>
                       {item.industry_area}
+                      </Button>
                     </Col>
                   ))}
                 </Row>
               </Col>
             </Row>
             <Row>
-              <Col span={2}></Col>
-              <Col span={21}>
-                <Row align="middle" justify="start">
+              <Col span={24}>
+                <Row align="middle" justify="center">
                   {this.state.recruiting.map((item, index) => (
                     // <Redirect to={{pathname:'/position',state:item}}>
                     <Link
@@ -167,7 +201,7 @@ export default class extends Component {
                       }}
                     >
                       <Col
-                        span={21}
+                        span={24}
                         style={{ marginTop: "2%", border: "1px solid #BBBBBB" }}
                       >
                         <Row>
@@ -239,9 +273,10 @@ export default class extends Component {
                           <Col span={2}>
                             <Row>
                               <img
-                                width="100%"
-                                height="100%"
-                                style={{ marginTop: "15%" }}
+                              width='100%'
+                              height='100%'
+                                style={{ marginTop: "15%"
+                               }}
                                 src={item.logo}
                               />
                             </Row>
@@ -262,20 +297,24 @@ export default class extends Component {
                     </Link>
                   ))}
                 </Row>
-
+              {this.state.showfenye?(
                 <Row>
-                  <Pagination
-                    current={this.state.current}
-                    total={this.state.num}
-                    onChange={this.onChange}
-                    defaultPageSize={8}
-                    style={{
-                      marginTop: "4%",
-                      align: "center",
-                      marginLeft: "37%",
-                    }}
-                  />
-                </Row>
+                <Pagination
+                  current={this.state.current}
+                  total={this.state.num}
+                  onChange={this.onChange}
+                  defaultPageSize={8}
+                  style={{
+                    marginTop: "4%",
+                    align: "center",
+                    marginLeft: "37%",
+                  }}
+                />
+              </Row>
+              ):null}
+              {this.state.recruiting.length===0?(
+                <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />
+              ):null}
               </Col>
             </Row>
           </Col>

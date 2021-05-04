@@ -20,6 +20,7 @@ export default class index extends Component {
         super(props);
         this.state = {
             company: {},
+            company_id:localStorage.getItem("company_id")
         }
     }
     componentDidMount() {
@@ -30,7 +31,7 @@ export default class index extends Component {
                 "Content-Type": "application/x-www-form-urlencoded",
             },
             body: qs.stringify({
-                company_id: 1
+                company_id: this.state.company_id
             }),
         })
             .then((res) => res.json())

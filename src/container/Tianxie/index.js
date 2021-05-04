@@ -117,34 +117,17 @@ export default class index extends Component {
 
                     </Col>
                     <Col span={12} style={{ marginTop: '100px'}}>
-                        <Row align='middle' style={{ marginTop: '20px' }}>
-                            <Col span={3} style={{ fontSize: '18px' }}>个人优势</Col>
-                            <Col style={{ marginLeft: '20px'}}>
-                                <Row style={{width:'200px',height:'60px'}}>
-                                      <TextArea placeholder="请输入内容" allowClear onChange={onChange1} />
-                                </Row>
-                               
-                            </Col>
-                        </Row>
                         <Row align='middle' style={{ marginTop: '40px' }}>
-                            <Col span={3} style={{ fontSize: '18px' }}>实习经历：</Col>
+                            <Col span={3} style={{ fontSize: '18px' }}>我的要求：</Col>
                         </Row>
                         <Row align='middle' style={{ marginTop: '10px' }}>
-                            <Col span={2} style={{ fontSize: '14px' }}>公司名称</Col>
+                            <Col span={2} style={{ fontSize: '14px' }}>期望薪资</Col>
                             <Col style={{ marginLeft: '10px', width: '180px' }}><Input /></Col>
-                            <Col span={2} style={{ fontSize: '14px',marginLeft: '10px' }}>所属行业</Col>
-                            <Col style={{ marginLeft: '10px', width: '180px' }}><Input /></Col>
-                        </Row>
-                        <Row align='middle' style={{ marginTop: '10px' }}>
-                            <Col span={2} style={{ fontSize: '14px' }}>所属部门</Col>
-                            <Col style={{ marginLeft: '10px', width: '180px' }}><Input /></Col>
-                            <Col span={2} style={{ fontSize: '14px',marginLeft: '10px' }}>职位名称</Col>
+                            <Col span={2} style={{ fontSize: '14px',marginLeft: '10px' }}>期望城市</Col>
                             <Col style={{ marginLeft: '10px', width: '180px' }}><Input /></Col>
                         </Row>
                         <Row align='middle' style={{ marginTop: '10px' }}>
-                            <Col span={2} style={{ fontSize: '14px' }}>职位类型</Col>
-                            <Col style={{ marginLeft: '10px', width: '180px' }}><Input /></Col>
-                            <Col span={2} style={{ fontSize: '14px',marginLeft: '10px' }}>在职时间</Col>
+                            <Col span={2} style={{ fontSize: '14px' }}>期望岗位</Col>
                             <Col style={{ marginLeft: '10px', width: '180px' }}><Input /></Col>
                         </Row>
                         <Row align='middle' style={{ marginTop: '30px' }}>
@@ -153,7 +136,14 @@ export default class index extends Component {
                                 <Row style={{width:'200px',height:'60px'}}>
                                       <TextArea placeholder="请输入内容" allowClear onChange={onChange1} />
                                 </Row>
-                               
+                            </Col>
+                        </Row>
+                        <Row align='middle' style={{ marginTop: '20px' }}>
+                            <Col span={3} style={{ fontSize: '18px' }}>个人优势</Col>
+                            <Col style={{ marginLeft: '20px'}}>
+                                <Row style={{width:'200px',height:'60px'}}>
+                                      <TextArea placeholder="请输入内容" allowClear onChange={onChange1} />
+                                </Row>
                             </Col>
                         </Row>
 
