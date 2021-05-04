@@ -9,7 +9,7 @@ export default class index extends Component {
     super(props);
     this.state = {
       current: 1,
-      recruiting: ["1", "2"],
+      recruiting: [],
       num: 0,
       financing: [],
       scale: [],
@@ -42,22 +42,22 @@ export default class index extends Component {
       });
   };
   componentDidMount() {
-    fetch("http://42.192.102.128:3000/user/collectionNum", {
+    fetch("http://42.192.102.128:3000/users/collectionNum", {
       method: "POST",
       headers: {
         Accept: "application/json,text/plain,*/*",
         "Content-Type": "application/x-www-form-urlencoded",
       },
       body: qs.stringify({
-        post_id:localStorage.getItem("person_id"),
+        person_id:localStorage.getItem("person_id"),
       }),
     })
       .then((res) => res.json())
       .then((res) => {
         this.setState({
-          num: res.list[0].num,
+          num: res.list[0].count,
         });
-        console.log(res);
+        console.log('collectionNum',res);
       });
     fetch("http://42.192.102.128:3000/users/postCollection", {
       method: "POST",
@@ -115,7 +115,7 @@ export default class index extends Component {
                       }}
                     >
                       <Col
-                        span={21}
+                        span={24}
                         style={{ marginTop: "2%", border: "1px solid #BBBBBB" }}
                       >
                         <Row>
@@ -174,6 +174,7 @@ export default class index extends Component {
                               {item.company_name}
                             </Row>
                             <Row
+                            justify='start'
                               style={{
                                 marginTop: "2%",
                                 fontSize: "14px",
@@ -181,17 +182,20 @@ export default class index extends Component {
                               }}
                             >
                               {item.industry_area}&nbsp;/&nbsp;{item.financing}
-                              &nbsp;/&nbsp;{item.scale_min}-{item.scale_max}人
+                              &nbsp;/&nbsp;
                             </Row>
                           </Col>
                           <Col span={2}>
                             <Row>
-                              <img
-                                width="80%"
-                                height="80%"
-                                style={{ marginTop: "15%" }}
-                                src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                            <div style={{width:'600px',height:'50px'}}>
+                            <img
+                                style={{
+                                height:'100%',
+                                width:'100%'
+                               }}
+                                src={item.logo}
                               />
+                              </div>
                             </Row>
                           </Col>
                         </Row>

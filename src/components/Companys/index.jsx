@@ -165,7 +165,7 @@ export default class index extends Component {
                     ):(<img
                     width="80%"
                     style={{
-                      marginTop: "20px",
+                      marginTop: "8px",
                       borderRadius: "5px",
                       marginLeft: "8px",
                     }}

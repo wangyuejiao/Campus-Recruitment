@@ -8,7 +8,7 @@ export default class index extends Component {
     super(props);
     this.state = {
       current: 1,
-      recruiting: ["1", "2"],
+      recruiting: [],
       num: 0,
     };
   }
@@ -144,13 +144,17 @@ export default class index extends Component {
                   </Row>
                 </Col>
                 <Col span={2}>
+
                   <Row>
+                  <div style={{width:'800px',height:'60px'}}>
                     <img
-                      width="100%"
-                      height="100%"
-                      style={{ marginTop: "15%" }}
-                      src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                      style={{
+                        height:'100%',
+                        width:'100%'
+                       }}
+                      src={item.logo}
                     />
+                     </div>
                   </Row>
                 </Col>
               </Row>
@@ -169,11 +173,10 @@ export default class index extends Component {
        {recruiting.length == 0 ? (
               <Row  align="middle" justify="center"style={{marginLeft:"40%",marginTop:'10%'}}><Empty /></Row>
             ) : (
-              <Row>
                 <Pagination
                   current={this.state.page}
-                  total={this.state.total}
-                  defaultPageSize={this.state.num}
+                  total={this.state.num}
+                  defaultPageSize={8}
                   onChange={this.onChange}
                   style={{
                     marginTop: "4%",
@@ -181,7 +184,6 @@ export default class index extends Component {
                     marginLeft: "37%",
                   }}
                 />
-              </Row>
             )}
       </Row>
     );

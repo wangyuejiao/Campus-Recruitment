@@ -261,6 +261,7 @@ export default class extends Component {
                             </Row>
                             <Row
                               style={{
+                                textAlign:'start',
                                 marginTop: "2%",
                                 fontSize: "14px",
                                 color: "black",
@@ -271,14 +272,16 @@ export default class extends Component {
                             </Row>
                           </Col>
                           <Col span={2}>
-                            <Row>
+                            <Row align='middle'>
+                              <div style={{width:'480px',height:'60px'}}>
                               <img
-                              width='100%'
-                              height='100%'
-                                style={{ marginTop: "15%"
+                                style={{
+                                height:'100%',
+                                width:'100%'
                                }}
                                 src={item.logo}
                               />
+                              </div>
                             </Row>
                           </Col>
                         </Row>
