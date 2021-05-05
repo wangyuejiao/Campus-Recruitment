@@ -165,8 +165,9 @@ export default class extends Component {
                     style={{ margin: "10px" }}
                   >
                     <Col span={5}>
+                      <div style={{width:'50px',height:'50px'}}>
                       <img
-                        src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                        src={item.logo}
                         style={{
                           margin: "0 auto",
                           width: "100%",
@@ -174,6 +175,7 @@ export default class extends Component {
                           borderRadius:'10px'
                         }}
                       />
+                      </div>
                     </Col>
                     <Col span={16}>
                       <Row justify="end" align="center">

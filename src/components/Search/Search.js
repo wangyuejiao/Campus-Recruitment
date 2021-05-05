@@ -34,7 +34,7 @@ export default function Search() {
   return (
     <div style={{ marginBottom: 1}}>
       
-      <Input addonBefore={selectBefore}  defaultValue="请输入公司或职位" />
+      <Input addonBefore={selectBefore}  placeholder="请输入公司或职位" />
       
     </div>
    

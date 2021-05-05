@@ -273,15 +273,17 @@ export default class extends Component {
                           </Col>
                           <Col span={2}>
                             <Row align='middle'>
-                              <div style={{width:'480px',height:'60px'}}>
+                              <Row align='middle' style={{width:'600px',height:'60px'}}>
                               <img
-                                style={{
-                                height:'100%',
-                                width:'100%'
-                               }}
-                                src={item.logo}
-                              />
-                              </div>
+                        src={item.logo}
+                        style={{
+                          margin: "0 auto",
+                          width: "100%",
+                          height: "100%",
+                          borderRadius:'10px'
+                        }}
+                      />
+                              </Row>
                             </Row>
                           </Col>
                         </Row>
