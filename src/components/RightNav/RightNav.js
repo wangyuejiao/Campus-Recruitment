@@ -86,15 +86,13 @@ export default function RightNav(props) {
 
               <Menu.Item
                 key="2"
-                icon={<i className="iconfont">&#xe661;</i>}
-                onClick={showDrawer2}
+                icon={<Link to={{ pathname: "/hobby/toudi" }}><i className="iconfont">&#xe661;</i></Link>}
               >
                 简历投递
               </Menu.Item>
               <Menu.Item
                 key="3"
-                icon={<i className="iconfont">&#xeaa2;</i>}
-                onClick={showDrawer3}
+                icon={<Link to={{ pathname: "/hobby/connect" }}><i className="iconfont">&#xeaa2;</i></Link>}
               >
                 我的面试
               </Menu.Item>

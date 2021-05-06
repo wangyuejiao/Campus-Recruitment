@@ -57,7 +57,7 @@ export default class index extends Component {
         "Content-Type": "application/x-www-form-urlencoded",
       },
       body: qs.stringify({
-        user_id: "1",
+        user_id: localStorage.getItem("person_id"),
         position_id: this.props.location.search.split("=")[1],
       }),
     })
@@ -79,7 +79,7 @@ export default class index extends Component {
         "Content-Type": "application/x-www-form-urlencoded",
       },
       body: qs.stringify({
-        user_id: "1",
+        user_id: localStorage.getItem("person_id"),
         position_id: this.props.location.search.split("=")[1],
       }),
     })
@@ -105,7 +105,7 @@ export default class index extends Component {
         "Content-Type": "application/x-www-form-urlencoded",
       },
       body: qs.stringify({
-        user_id: "1",
+        user_id: localStorage.getItem("person_id"),
         position_id: this.props.location.search.split("=")[1],
       }),
     })
@@ -304,7 +304,7 @@ export default class index extends Component {
             <Row
               style={{ fontSize: "15px", paddingLeft: "1%", height: "15vh" }}
             >
-              <Col span={2}></Col>123
+              <Col span={2}></Col>北京
             </Row>
           </Col>
           <Col span={1}>

@@ -12,10 +12,10 @@ export default class extends Component {
       current: 1,
       num: 0,
       company: [],
-      financing:[],
-      scale:[],
-      industry_area:[],
-      citys:[],
+      financing: [],
+      scale: [],
+      industry_area: [],
+      citys: [],
     };
   }
   onChange = (page) => {
@@ -79,32 +79,28 @@ export default class extends Component {
         console.log(res.list);
       });
 
-     //数据库返回三个数组，所以为了使每个数组都可以显示，应该设置三个变量
-     fetch("http://42.192.102.128:3000/common/searchMenu")
-     .then(res => res.json())
-     .then(res => {
-       this.setState({
-         industry_area: res.list.industry_area,
-         scale:res.list.scale,
-         financing:res.list.financing
-       })
-       console.log(res.list.industry_area,res.list.scale,res.list.financing)
-      
-     })
-
-
-     //公司地点的接口
-      fetch("http://42.192.102.128:3000/common/cityAll")
-      .then(res => res.json())
-      .then(res => {
+    //数据库返回三个数组，所以为了使每个数组都可以显示，应该设置三个变量
+    fetch("http://42.192.102.128:3000/common/searchMenu")
+      .then((res) => res.json())
+      .then((res) => {
         this.setState({
-          citys: res.list
-        })
-        console.log(res.list)
-      })
+          industry_area: res.list.industry_area,
+          scale: res.list.scale,
+          financing: res.list.financing,
+        });
+        console.log(res.list.industry_area, res.list.scale, res.list.financing);
+      });
 
-}
-
+    //公司地点的接口
+    fetch("http://42.192.102.128:3000/common/cityAll")
+      .then((res) => res.json())
+      .then((res) => {
+        this.setState({
+          citys: res.list,
+        });
+        console.log(res.list);
+      });
+  }
 
   render() {
     const { company } = this.state;
@@ -121,31 +117,40 @@ export default class extends Component {
                 border: "1px solid #BBBBBB",
               }}
             >
-              <Col span={2} style={{ marginLeft: "1%" }}></Col>
+              <Col span={2} style={{ marginLeft: "1%" }}></Col> 
               <Col>
-                <Row style={{ marginTop: "7%" }}>公司地点：
-                 {
-                   this.state.citys.map((item,index)=>(
-                      index<15? <Col style={{marginRight:'10px'}}>{item.city}</Col>:<Col></Col>
-                   ))
-                 }
+                <Row style={{ marginTop: "7%" }}>
+                  公司地点：
+                  {this.state.citys.map((item, index) =>
+                    index < 15 ? (
+                      <Col style={{ marginRight: "10px" }}><Button type="link" style={{padding:'0px',height:'0px'}}>{item.city}</Button></Col>
+                    ) : (
+                      <Col></Col>
+                    )
+                  )}
                 </Row>
 
-                <Row style={{ marginTop: "7%" }}>融资阶段：
-                {this.state.financing.map((item,index)=>(
-                                               <Col style={{marginRight:'10px'}}>{item.financing}</Col>
-                                   ))}
+                <Row style={{ marginTop: "7%" }}>
+                  融资阶段：
+                  {this.state.financing.map((item, index) => (
+                    <Col style={{ marginRight: "10px" }}><Button type="link" style={{padding:'0px',height:'0px'}}>{item.financing}</Button></Col>
+                  ))}
                 </Row>
-                <Row style={{ marginTop: "7%" }}>公司规模：
-                {this.state.scale.map((item,index)=>(
-                                               <Col  style={{marginRight:'10px'}}>{item.scale_min}-{item.scale_max}人</Col>
-                                   ))}
+                <Row style={{ marginTop: "7%" }}>
+                  公司规模：
+                  {this.state.scale.map((item, index) => (
+                    <Col style={{ marginRight: "10px" }}>
+                      <Button type="link" style={{padding:'0px',height:'0px'}}>{item.scale_min}-{item.scale_max}人</Button>
+                    </Col>
+                  ))}
                 </Row>
                 <Row style={{ marginTop: "7%", marginBottom: "7%" }}>
                   行业领域：
-                  {this.state.industry_area.map((item,index)=>(
-                                               <Col  style={{marginRight:'10px'}}>{item.industry_area}</Col>
-                                   ))}
+                  {this.state.industry_area.map((item, index) => (
+                    <Col style={{ marginRight: "10px" }}>
+                     <Button type="link" style={{padding:'0px',height:'0px'}}>{item.industry_area}</Button>
+                    </Col>
+                  ))}
                 </Row>
               </Col>
             </Row>
@@ -154,67 +159,73 @@ export default class extends Component {
               justify="space-around"
               align="middle"
             >
-              {company.map((item,index)=>(
-                  
-                   <Col span={7} style={{ backgroundColor: "white" ,border:'1px solid #B0E2FF',margin:'1% 0 1% 0'}}>
-                     
-                <Link to={{pathname:'companyinfo',search:'?code='+item.id}} style={{color:'black',display:'block'}}>
-                  <Row
-                    justify="space-between"
-                    align="center"
-                    style={{ margin: "10px" }}
+              {company.map((item, index) => (
+                <Col
+                  span={7}
+                  style={{
+                    backgroundColor: "white",
+                    border: "1px solid #B0E2FF",
+                    margin: "1% 0 1% 0",
+                  }}
+                >
+                  <Link
+                    to={{ pathname: "companyinfo", search: "?code=" + item.id }}
+                    style={{ color: "black", display: "block" }}
                   >
-                    <Col span={5}>
-                      <div style={{width:'50px',height:'50px'}}>
-                      <img
-                        src={item.logo}
-                        style={{
-                          margin: "0 auto",
-                          width: "100%",
-                          height: "100%",
-                          borderRadius:'10px'
-                        }}
-                      />
-                      </div>
-                    </Col>
-                    <Col span={16}>
-                      <Row justify="end" align="center">
-                        <h3>{item.company_name}</h3>
-                      </Row>
-                      <Row justify="end" align="center">
-                        <span>{item.financing}</span>
-                        <span>
-                          <Divider
-                            type="vertical"
-                            style={{ backgroundColor: "#BBBBBB" }}
+                    <Row
+                      justify="space-between"
+                      align="center"
+                      style={{ margin: "10px" }}
+                    >
+                      <Col span={5}>
+                        <div style={{ width: "50px", height: "50px" }}>
+                          <img
+                            src={item.logo}
+                            style={{
+                              margin: "0 auto",
+                              width: "100%",
+                              height: "100%",
+                              borderRadius: "10px",
+                            }}
                           />
-                        </span>
-  
-                        <span>{item.industry_area}</span>
-                      </Row>
-                    </Col>
-                  </Row>
-                  <Row justify='center' align='center'>
-                    <Col span={22}>
-                    <Divider
-                    style={{
-                      backgroundColor: "#BBBBBB",
-                      height: "2px",
-                      margin: "0",
-                      width:'60%'
-                    }}
-                  />
-                    </Col>
-                 
-                  </Row>
-                  
-                  <Row justify="start">
-                    <Col span={1}></Col>
-                    在招岗位：{item.position_num}
-                  </Row>
+                        </div>
+                      </Col>
+                      <Col span={16}>
+                        <Row justify="end" align="center">
+                          <h3>{item.company_name}</h3>
+                        </Row>
+                        <Row justify="end" align="center">
+                          <span>{item.financing}</span>
+                          <span>
+                            <Divider
+                              type="vertical"
+                              style={{ backgroundColor: "#BBBBBB" }}
+                            />
+                          </span>
+
+                          <span>{item.industry_area}</span>
+                        </Row>
+                      </Col>
+                    </Row>
+                    <Row justify="center" align="center">
+                      <Col span={22}>
+                        <Divider
+                          style={{
+                            backgroundColor: "#BBBBBB",
+                            height: "2px",
+                            margin: "0",
+                            width: "60%",
+                          }}
+                        />
+                      </Col>
+                    </Row>
+
+                    <Row justify="start">
+                      <Col span={1}></Col>
+                      在招岗位：{item.position_num}
+                    </Row>
                   </Link>
                 </Col>
-               
               ))}
             </Row>
             <Row

@@ -1,25 +1,51 @@
 import React, { Component } from "react";
 import TopNav from "../../components/topNav";
 import RightNav from "../../components/RightNav/RightNav.js";
-import { Row, Col, Divider, Image, Button, Empty , Pagination } from "antd";
-import Search from "../../components/Search/Search";
-import Recruiting from "../../components/Recruiting";
+import { Row, Col, Divider, Input,Select,AutoComplete, Button, Empty , Pagination } from "antd";
 import { Link } from "react-router-dom";
 import qs from "querystring";
-
+const { Option } = Select;
 export default class extends Component {
   constructor(props) {
     super(props);
     this.state = {
       current: 1,
-      recruiting: ["1", "2"],
+      recruiting: [],
       num: 0,
       financing: [],
       scale: [],
       industry_area: [],
       citys: [],
-      showfenye:true
+      showfenye:true,
+      searchtype:'post'
     };
+  }
+  searchtype=(value)=>{
+    this.setState({
+      searchtype:value
+    })
+  }
+  search=(e)=>{
+    console.log("search",e.target.value)
+    fetch("http://localhost:3000/users/search", {
+      method: "POST",
+      headers: {
+        Accept: "application/json,text/plain,*/*",
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: qs.stringify({
+        filter: e.target.value,
+        page:1,
+        type:this.state.searchtype
+      }),
+    })
+      .then((res) => res.json())
+      .then((res) => {
+        this.setState({
+          recruiting: res.list.filter(item=>item.post_id),
+          showfenye:false
+        })
+      });
   }
   onChange = (page) => {
     console.log(page);
@@ -133,7 +159,17 @@ export default class extends Component {
               }}
             >
               <Col span={14}>
-                <Search />
+              <Input.Group compact>
+      <Select defaultValue="post" onChange={this.searchtype} style={{ width: '90px' }}>
+        <Option value="post">职位</Option>
+        <Option value="company">公司</Option>
+      </Select>
+      <Input
+      onPressEnter={this.search}
+        style={{ width: '70%' }}
+        placeholder="请输入公司或职位"
+      />
+    </Input.Group>
               </Col>
             </Row>
             <Row
@@ -190,7 +226,7 @@ export default class extends Component {
               </Col>
             </Row>
             <Row>
-              <Col span={24}>
+              <Col style={{width:'800px',marginLeft:'300px'}}>
                 <Row align="middle" justify="center">
                   {this.state.recruiting.map((item, index) => (
                     // <Redirect to={{pathname:'/position',state:item}}>
@@ -245,9 +281,9 @@ export default class extends Component {
                               </span>
                             </Row>
                           </Col>
-                          <Col span={8}></Col>
+                          <Col span={5}></Col>
                           <Col
-                            span={4}
+                            span={7}
                             style={{ marginTop: "2%", marginLeft: "2%" }}
                           >
                             <Row

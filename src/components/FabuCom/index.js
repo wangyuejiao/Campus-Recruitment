@@ -10,6 +10,7 @@ import {
   Dropdown,
   Button,
   Form,
+  notification
 } from "antd";
 import { DownOutlined } from "@ant-design/icons";
 import $ from "jquery";
@@ -23,6 +24,13 @@ const educationitem = [
   { id: "1", education: "大专" },
   { id: "2", education: "本科" },
 ];
+const openNotificationWithIcon = type => {
+  notification[type]({
+    message: 'success',
+    description:
+      '发布成功.',
+  });
+};
 const cityitem = [{ id: "1", city: "厦门" }];
 export default class index extends Component {
   constructor(props) {
@@ -80,6 +88,7 @@ export default class index extends Component {
     });
   };
   submit = () => {
+    
       var data={
         post_name:this.state.postname,
         city_id:this.state.city,
@@ -114,7 +123,7 @@ export default class index extends Component {
       })
         .then((res) => res.json())
         .then((res) => {
-          console.log(res)
+          openNotificationWithIcon('success')
         });
   };
   postname = (e) => {
@@ -263,17 +272,16 @@ export default class index extends Component {
             </Row>
 
             <Row align="middle" justify="center" style={{ marginTop: "50px" }}>
+              <Button onClick={this.submit} type="link" >
               <i
                 className="iconfont"
                 style={{ fontSize: "45px" }}
-                onClick={this.submit}
               >
                 &#xea0b;
               </i>
+              </Button>
             </Row>
-            <Row align="middle" justify="center" style={{ fontSize: "15px" }}>
-              发布
-            </Row>
+            <div style={{height:'120px',width:'100%'}}></div>
           </Col>
         </Row>
       </div>

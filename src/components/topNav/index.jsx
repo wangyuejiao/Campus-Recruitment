@@ -168,8 +168,8 @@ export default class index extends Component {
                   style={{ height: "100%" }}
                 >
                   <Avatar
-                    style={{ border: "1px solid white" }}
-                    src="https://gimg2.baidu.com/image_search/src=http%3A%2F%2Fimg.bqatj.com%2Fimg%2F726697295441df40.jpg&refer=http%3A%2F%2Fimg.bqatj.com&app=2002&size=f9999,10000&q=a80&n=0&g=0n&fmt=jpeg?sec=1621520175&t=88416367a31f56d0fd314d7c1526e804"
+                    style={{ border: "1px solid white" }} 
+                    src="./images/zhuzhu.jpg"
                   />
                 </Row>
               </Col>

@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Row, Col, Divider, Image, Button, Icon, Pagination } from "antd";
+import { Row, Col, Divider, Empty, Button, Icon, Pagination } from "antd";
 import Recruiting from "../../components/Recruiting";
 import { Link } from "react-router-dom";
 import qs from "querystring";
@@ -101,10 +101,10 @@ export default class index extends Component {
   render() {
     return (
       <div>
-        <Row>
+        {this.state.num !==0? (<Row>
           <Col span={24}>
             <Row>
-              <Col span={24} style={{ marginLeft: "6%" }}>
+            <Col style={{width:'800px',marginLeft:'150px'}}>
                 <Row align="middle" justify="start">
                   {this.state.recruiting.map((item, index) => (
                     // <Redirect to={{pathname:'/position',state:item}}>
@@ -233,7 +233,7 @@ export default class index extends Component {
               <Col span={1}> </Col>
             </Row>
           </Col>
-        </Row>
+        </Row>):(<Empty image={Empty.PRESENTED_IMAGE_SIMPLE} />)}
       </div>
     );
   }

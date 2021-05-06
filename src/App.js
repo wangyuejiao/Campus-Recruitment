@@ -23,7 +23,6 @@ function App() {
       <Router>
         <Switch>
           {/*  */}
-          <Tianxie path='/tianxie'/>
           <TianxieCom path='/tianxieCom'/>
           {/* <Register /> */}
           <Route exact path='/' component={Home} />
